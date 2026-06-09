@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corniche Palace | A Timeless Retreat on the Arabian Gulf</title>
+    <title>Corniche Palace | Your Private Villa Sanctuary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -203,7 +203,7 @@
             background-color: var(--primary-gold);
         }
 
-        /* About Component Block */
+        /* About Component Block with Multiple Image Grid Showcase */
         .about-container {
             display: flex;
             gap: 50px;
@@ -224,10 +224,23 @@
             flex: 1;
         }
 
-        .about-img {
+        .about-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .about-gallery-grid img {
             width: 100%;
+            height: 180px;
+            object-fit: cover;
             border-radius: 4px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .about-gallery-grid img:hover {
+            transform: scale(1.03);
         }
 
         /* Rooms Structure Container */
@@ -508,6 +521,7 @@
             .hero-content h2 { font-size: 2.3rem; }
             .about-container, .contact-wrapper { flex-direction: column; }
             .form-row { flex-direction: column; gap: 20px; }
+            .about-gallery-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -534,7 +548,7 @@
         </video>
         <div class="video-overlay"></div>
         <div class="hero-content">
-            <h2>Elegant Interiors. Effortless Stays.</h2>
+            <h2>Your Private Villa Sanctuary by the Gulf</h2>
             <p>A Timeless Retreat on the Arabian Gulf</p>
             <a href="#book" class="btn-gold">Book Your Stay</a>
         </div>
@@ -552,8 +566,14 @@
                     <a href="maps.app.goo.gl/hbgt6mBhSpCMx4PHA" target="_blank" class="btn-gold" style="color:#000;">Get Directions To Resort</a>
                 </p>
             </div>
+            
             <div class="about-image-wrapper">
-                <img src="about-side.jpg.jpeg/19712.png.jpeg/19709.png.jpeg" alt="Resort Architecture" class="about-img">
+                <div class="about-gallery-grid">
+                    <img src="19708.png.jpeg" alt="Lounge Area View">
+                    <img src="19709.png.jpeg" alt="Interior Details View">
+                    <img src="19712.png.jpeg" alt="Luxury Suite Setup">
+                    <img src="about-side.jpg.jpeg" alt="Resort Architecture Exterior">
+                </div>
             </div>
         </div>
     </section>
@@ -564,7 +584,7 @@
         </div>
         <div class="grid-container">
             <div class="card">
-                <img src="room3.jpg.jpeg" alt="Standard Double Room" class="card-img">
+                <img src="room1.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
                     <h3>Standard Double Room</h3>
                     <div class="room-price-tag">From AED <span id="card-rate-double">350</span> / Night</div>
@@ -572,7 +592,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="room1.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
+                <img src="room3.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>One Bedroom Suite</h3>
                     <div class="room-price-tag">From AED <span id="card-rate-suite1">750</span> / Night</div>
@@ -580,7 +600,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="room2.png.jpeg" alt="Two Bedroom Suite" class="card-img">
+                <img src="room4.jpg.jpeg" alt="Two Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>Two Bedroom Suite</h3>
                     <div class="room-price-tag">From AED <span id="card-rate-suite2">1100</span> / Night</div>
@@ -603,21 +623,21 @@
                 </div>
             </div>
             <div class="amenity-card">
-                <img src="19708.png.jpeg" alt="Coffee Shop Dining Area" class="amenity-img">
+                <img src="19724.png.jpeg" alt="Coffee Shop Dining Area Layout" class="amenity-img">
                 <div class="amenity-text-box">
                     <h4>Coffee Shop & Lounge</h4>
                     <p>Serving an all-day relaxed menu of fresh light bites, artisan specialty teas, and refreshing juices.</p>
                 </div>
             </div>
             <div class="amenity-card">
-                <img src="19709.png.jpeg" alt="In-Room Premium Amenities Layout" class="amenity-img">
+                <img src="room2.png.jpeg" alt="In-Room Premium Amenities Layout Room View" class="amenity-img">
                 <div class="amenity-text-box">
                     <h4>In-Room Luxury Set</h4>
                     <p>Flat-screen TV, complimentary high-speed Wi-Fi, premium refrigerator, and individual robust A/C networks.</p>
                 </div>
             </div>
             <div class="amenity-card">
-                <img src="19724.png.jpeg" alt="Front Desk Reception View" class="amenity-img">
+                <img src="hospitality.png" alt="Front Desk Administration View" class="amenity-img">
                 <div class="amenity-text-box">
                     <h4>24-Hour Hospitality</h4>
                     <p>Complete front desk administrative assistance, round-the-clock room service, and multilingual dedicated staff.</p>
@@ -741,9 +761,9 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             var video = document.getElementById("heroVideo");
-            video.currentTime = 03;
+            video.currentTime = 04;
             video.addEventListener('seeked', function() {
-                if (video.currentTime < 03) { video.currentTime = 03; }
+                if (video.currentTime < 04) { video.currentTime = 04; }
             });
             updateGuestPriceDisplay();
         });
@@ -754,6 +774,7 @@
             document.getElementById("guest-price-screen").innerText = rateToDisplay;
         }
 
+        // Dashboard Window Access Functions
         function openAdminModal() {
             document.getElementById("adminModal").style.display = "flex";
         }
