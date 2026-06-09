@@ -332,6 +332,23 @@
             color: #666666;
         }
 
+        /* SVG Vector Icon Styling for New Minimal Amenities */
+        .amenity-icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 180px;
+            background: #faf7f2;
+            color: var(--dark-gold);
+        }
+
+        .amenity-icon-box svg {
+            width: 60px;
+            height: 60px;
+            fill: currentColor;
+        }
+
         /* Booking Section Layout */
         .booking-section {
             background-color: var(--light-cream);
@@ -564,7 +581,7 @@
                 <p>Welcome to Corniche Palace, a premium sanctuary designed to deliver complete privacy, unmatched comfort, and exquisite architectural aesthetics.</p>
                 <p>Forty thoughtfully appointed rooms and suites, an outdoor pool, garden lounges and an inviting coffee shop come together in a setting that feels at once intimate and grand.</p>
                 <p style="margin-top: 25px;">
-                    <a href="maps.app.goo.gl/hbgt6mBhSpCMx4PHA" target="_blank" class="btn-gold" style="color:#000;">Get Directions To Resort</a>
+                    <a href="https://maps.app.goo.gl/hbgt6mBhSpCMx4PHA" target="_blank" class="btn-gold" style="color:#000;">Get Directions To Resort</a>
                 </p>
             </div>
             
@@ -634,7 +651,7 @@
                 <img src="room3.jpg.jpeg" alt="In-Room Premium Amenities Layout Room View" class="amenity-img">
                 <div class="amenity-text-box">
                     <h4>In-Room Luxury Set</h4>
-                    <p>Flat-screen TV, complimentary high-speed Wi-Fi, premium refrigerator, and individual robust A/C networks.</p>
+                    <p>Flat-screen TV, complimentary premium refrigerator, and individual robust A/C networks.</p>
                 </div>
             </div>
             <div class="amenity-card">
@@ -642,6 +659,33 @@
                 <div class="amenity-text-box">
                     <h4>24-Hour Hospitality</h4>
                     <p>Complete front desk administrative assistance, round-the-clock room service, and multilingual dedicated staff.</p>
+                </div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 21a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4.95-4.95a1 1 0 0 1 0-1.41 6.97 6.97 0 0 1 9.9 0 1 1 0 1.41 1 1 0 0 1-1.42 0 4.97 4.97 0 0 0-7.06 0 1 1 0 0 1-1.42 0zM3.51 12.6a1 1 0 0 1 0-1.42 11.95 11.95 0 0 1 16.98 0 1 1 0 0 1 0 1.42 1 1 0 0 1-1.42 0 9.95 9.95 0 0 0-14.14 0 1 1 0 0 1-1.42 0z"/></svg>
+                </div>
+                <div class="amenity-text-box">
+                    <h4>Free High-Speed Wi-Fi</h4>
+                    <p>Complimentary ultra-fast Wi-Fi network available seamlessly across all suites and common areas.</p>
+                </div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 11h-2v3H9V7h4c1.66 0 3 1.34 3 3s-1.34 3-3 3zm1-3c0-.55-.45-1-1-1h-2v2h1c.55 0 1-.45 1-1z"/></svg>
+                </div>
+                <div class="amenity-text-box">
+                    <h4>Free On-Site Parking</h4>
+                    <p>Safe, secure and private complimentary vehicle parking zones managed directly inside the resort premises.</p>
+                </div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M2 21h18v-2H2v2zM20 8h-2V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 2.21 1.79 4 4 4h10c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-4 7c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V5h12v10zm4-5h-2V10h2v2z"/></svg>
+                </div>
+                <div class="amenity-text-box">
+                    <h4>In-Room Tea & Coffee</h4>
+                    <p>Complimentary electric kettle setups paired daily with dynamic premium artisan tea bags and coffee blends.</p>
                 </div>
             </div>
         </div>
@@ -769,6 +813,7 @@
             updateGuestPriceDisplay();
         });
 
+        // Function to update daily display dynamically based on selection layout structure
         function updateGuestPriceDisplay() {
             var selectedStyle = document.getElementById("room-type").value;
             var rateToDisplay = currentHotelRates[selectedStyle];
