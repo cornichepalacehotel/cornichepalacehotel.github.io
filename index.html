@@ -230,7 +230,7 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        /* Rooms Structure Container (Without Deluxe Balcony Category) */
+        /* Rooms Structure Container */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -272,36 +272,53 @@
             margin-bottom: 15px;
         }
 
-        /* In-Room Facilities Block */
+        /* Amenities Section Layout with Images Embedded */
         .amenities-section {
             background-color: var(--pure-white);
         }
 
         .amenities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
         }
 
-        .amenity-box {
-            background: #faf8f5;
-            padding: 25px;
+        .amenity-card {
+            background: #ffffff;
             border-radius: 4px;
-            border-left: 3px solid var(--primary-gold);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid #f1ece5;
+            transition: all 0.3s;
         }
 
-        .amenity-box h4 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
+        .amenity-card:hover {
+            box-shadow: 0 10px 25px rgba(197, 168, 128, 0.15);
+        }
+
+        .amenity-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .amenity-text-box {
+            padding: 20px;
+            border-top: 3px solid var(--primary-gold);
+        }
+
+        .amenity-text-box h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
             color: #1a1a1a;
         }
 
-        .amenity-box p {
+        .amenity-text-box p {
             font-size: 0.9rem;
             color: #666666;
         }
 
-        /* Custom Update: Light Elegant Beige Design Booking Section Layout */
+        /* Booking Section Layout */
         .booking-section {
             background-color: var(--light-cream);
             color: #1a1a1a;
@@ -356,7 +373,6 @@
             box-shadow: 0 0 5px rgba(170, 139, 92, 0.2);
         }
 
-        /* Live Integrated Pricing Dynamic Card inside Form */
         .live-price-calculator {
             background: #fdfdfd;
             border: 1px dashed var(--primary-gold);
@@ -416,7 +432,7 @@
             font-weight: 500;
         }
 
-        /* Secure Protected Admin Panel Layer Modal overlay style */
+        /* Admin Modal Dashboard Layout Window */
         .admin-modal {
             display: none;
             position: fixed;
@@ -456,7 +472,7 @@
         }
 
         .admin-control-grid {
-            display: none; /* Triggers upon authorized system login */
+            display: none;
             margin-top: 20px;
             border-top: 1px solid #eeeeee;
             padding-top: 20px;
@@ -518,7 +534,7 @@
         </video>
         <div class="video-overlay"></div>
         <div class="hero-content">
-            <h2>Welcome to Grand Luxury </h2>
+            <h2>Elegant Interiors. Effortless Stays.</h2>
             <p>A Timeless Retreat on the Arabian Gulf</p>
             <a href="#book" class="btn-gold">Book Your Stay</a>
         </div>
@@ -548,7 +564,7 @@
         </div>
         <div class="grid-container">
             <div class="card">
-                <img src="room1.jpg.jpeg" alt="Standard Double Room" class="card-img">
+                <img src="room3.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
                     <h3>Standard Double Room</h3>
                     <div class="room-price-tag">From AED <span id="card-rate-double">350</span> / Night</div>
@@ -556,7 +572,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="room3.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
+                <img src="room1.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>One Bedroom Suite</h3>
                     <div class="room-price-tag">From AED <span id="card-rate-suite1">750</span> / Night</div>
@@ -564,7 +580,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="19712.png.jpeg" alt="Two Bedroom Suite" class="card-img">
+                <img src="room2.png.jpeg" alt="Two Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>Two Bedroom Suite</h3>
                     <div class="room-price-tag">From AED <span id="card-rate-suite2">1100</span> / Night</div>
@@ -579,21 +595,33 @@
             <h2>World-Class Conveniences</h2>
         </div>
         <div class="amenities-grid">
-            <div class="amenity-box">
-                <h4>Outdoor Swimming Pool</h4>
-                <p>Beautifully managed outdoor pool with premium deck sun loungers and a modern layout structure.</p>
+            <div class="amenity-card">
+                <img src="19725.png.jpeg" alt="Outdoor Swimming Pool Facility" class="amenity-img">
+                <div class="amenity-text-box">
+                    <h4>Outdoor Swimming Pool</h4>
+                    <p>Beautifully managed outdoor pool with premium deck sun loungers and a modern layout structure.</p>
+                </div>
             </div>
-            <div class="amenity-box">
-                <h4>Coffee Shop & Lounge</h4>
-                <p>Serving an all-day relaxed menu of fresh light bites, artisan specialty teas, and refreshing juices.</p>
+            <div class="amenity-card">
+                <img src="19708.png.jpeg" alt="Coffee Shop Dining Area" class="amenity-img">
+                <div class="amenity-text-box">
+                    <h4>Coffee Shop & Lounge</h4>
+                    <p>Serving an all-day relaxed menu of fresh light bites, artisan specialty teas, and refreshing juices.</p>
+                </div>
             </div>
-            <div class="amenity-box">
-                <h4>In-Room Luxury Set</h4>
-                <p>Flat-screen TV, complimentary high-speed Wi-Fi, premium refrigerator, and individual robust A/C networks.</p>
+            <div class="amenity-card">
+                <img src="19709.png.jpeg" alt="In-Room Premium Amenities Layout" class="amenity-img">
+                <div class="amenity-text-box">
+                    <h4>In-Room Luxury Set</h4>
+                    <p>Flat-screen TV, complimentary high-speed Wi-Fi, premium refrigerator, and individual robust A/C networks.</p>
+                </div>
             </div>
-            <div class="amenity-box">
-                <h4>24-Hour Hospitality</h4>
-                <p>Complete front desk administrative assistance, round-the-clock room service, and multilingual dedicated staff.</p>
+            <div class="amenity-card">
+                <img src="19724.png.jpeg" alt="Front Desk Reception View" class="amenity-img">
+                <div class="amenity-text-box">
+                    <h4>24-Hour Hospitality</h4>
+                    <p>Complete front desk administrative assistance, round-the-clock room service, and multilingual dedicated staff.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -653,7 +681,7 @@
                 <div class="info-box">
                     <h4>Direct Contact Helpline</h4>
                     <p><strong>Email:</strong> <a href="mailto:caravanhotel111@gmail.com">caravanhotel111@gmail.com</a></p>
-                    <p><strong>Phone:</strong> <a href="tel:+97167409191">+971 6 740 9191</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+971556770718">+971 55 677 0718</a></p>
                 </div>
                 <div class="info-box">
                     <h4>Property Destination Location</h4>
@@ -670,7 +698,7 @@
 
     <div id="adminModal" class="admin-modal">
         <div class="admin-modal-content">
-            <span class="close-modal" onclick="closeAdminModal()">&times;</span>
+            <span class="close-modal" onclick="closeAdminModal()">×</span>
             <h3>Corniche Palace Management</h3>
             
             <div id="adminAuthBlock">
@@ -705,7 +733,6 @@
     </footer>
 
     <script>
-        // Global system variable object tracking dynamic prices live
         var currentHotelRates = {
             "standard-double": 350,
             "one-bedroom-suite": 750,
@@ -721,14 +748,12 @@
             updateGuestPriceDisplay();
         });
 
-        // Guest Screen Dropdown Reaction Function
         function updateGuestPriceDisplay() {
             var selectedStyle = document.getElementById("room-type").value;
             var rateToDisplay = currentHotelRates[selectedStyle];
             document.getElementById("guest-price-screen").innerText = rateToDisplay;
         }
 
-        // Admin Modal Interface Operations 
         function openAdminModal() {
             document.getElementById("adminModal").style.display = "flex";
         }
@@ -736,12 +761,10 @@
             document.getElementById("adminModal").style.display = "none";
         }
 
-        // Secure Login Authorization Routine
         function validateAdminLogin() {
             var u = document.getElementById("adminUser").value;
             var p = document.getElementById("adminPass").value;
             
-            // Hardcoded Credentials as requested
             if (u === "admin" && p === "corniche123") {
                 document.getElementById("adminAuthBlock").style.display = "none";
                 document.getElementById("adminControlGrid").style.display = "block";
@@ -750,25 +773,20 @@
             }
         }
 
-        // Apply Price adjustments live to memory state and guest view ports
         function saveSystemRates() {
             var rDouble = parseInt(document.getElementById("input-double").value) || 350;
             var rSuite1 = parseInt(document.getElementById("input-suite1").value) || 750;
             var rSuite2 = parseInt(document.getElementById("input-suite2").value) || 1100;
 
-            // Save inside memory engine
             currentHotelRates["standard-double"] = rDouble;
             currentHotelRates["one-bedroom-suite"] = rSuite1;
             currentHotelRates["two-bedroom-suite"] = rSuite2;
 
-            // Reflect on display screen components live
             document.getElementById("card-rate-double").innerText = rDouble;
             document.getElementById("card-rate-suite1").innerText = rSuite1;
             document.getElementById("card-rate-suite2").innerText = rSuite2;
 
-            // Update Form tracker area text dynamically
             updateGuestPriceDisplay();
-
             alert("Success: Corniche Palace price modules updated securely!");
             closeAdminModal();
         }
