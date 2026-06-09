@@ -714,9 +714,9 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             var video = document.getElementById("heroVideo");
-            video.currentTime = 03;
+            video.currentTime = 02;
             video.addEventListener('seeked', function() {
-                if (video.currentTime < 03) { video.currentTime = 03; }
+                if (video.currentTime < 02) { video.currentTime = 02; }
             });
             updateGuestPriceDisplay();
         });
