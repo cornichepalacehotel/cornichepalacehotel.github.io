@@ -33,7 +33,6 @@
             overflow-x: hidden;
         }
 
-        /* Typography Styles */
         h1, h2, h3, .hotel-title {
             font-family: 'Playfair Display', serif;
             letter-spacing: 1px;
@@ -127,20 +126,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 20, 28, 0.55);
+            background: rgba(15, 20, 28, 0.6);
             z-index: -1;
         }
 
+        /* Custom Updated: Matches Brochure Concept instead of Villa Style */
         .hero-content h2 {
-            font-size: 4rem;
+            font-size: 3.8rem;
             font-weight: 700;
             margin-bottom: 20px;
-            font-style: italic;
             color: var(--pure-white);
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.6);
         }
 
-        /* Custom Updated Tag-line Style */
         .hero-content p {
             font-size: 1.1rem;
             letter-spacing: 3px;
@@ -171,7 +169,6 @@
             box-shadow: 0 0 15px rgba(197, 168, 128, 0.4);
         }
 
-        /* Sections Structure */
         section {
             padding: 80px 10%;
         }
@@ -227,10 +224,10 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        /* Rooms Grid Layout */
+        /* Rooms Showcase Grid with Live Prices */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
@@ -248,7 +245,7 @@
 
         .card-img {
             width: 100%;
-            height: 250px;
+            height: 240px;
             object-fit: cover;
         }
 
@@ -257,12 +254,55 @@
         }
 
         .card-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
             color: #1a1a1a;
         }
 
-        /* Booking Form & Contact Section */
+        .room-price-tag {
+            color: var(--dark-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Amenities Section Layout from Brochure */
+        .amenities-section {
+            background-color: #ffffff;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .amenity-box {
+            background: #faf8f5;
+            padding: 25px;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary-gold);
+            transition: all 0.3s;
+        }
+
+        .amenity-box:hover {
+            background: #f4f0e8;
+        }
+
+        .amenity-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .amenity-box p {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        /* Booking Section & Form */
         .booking-section {
             background-color: #161c24;
             color: var(--text-light);
@@ -313,7 +353,7 @@
             outline: none;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             border-color: var(--primary-gold);
         }
 
@@ -364,7 +404,73 @@
             color: var(--primary-gold);
         }
 
-        /* Footer Element */
+        /* Interactive Price Rate Admin Panel UI Style */
+        .admin-rate-panel {
+            background: #f4f2ee;
+            border-top: 2px dashed var(--primary-gold);
+            padding: 40px 10%;
+        }
+
+        .admin-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .admin-box h3 {
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .admin-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .admin-row label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #444444;
+            flex: 1;
+        }
+
+        .admin-row input {
+            width: 120px;
+            padding: 8px 12px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .admin-btn {
+            width: 100%;
+            background: #161c24;
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: var(--dark-gold);
+        }
+
         footer {
             background-color: #0b0e14;
             color: #666666;
@@ -374,11 +480,10 @@
             border-top: 1px solid #161c24;
         }
 
-        /* Responsive Configuration */
         @media (max-width: 768px) {
             nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
             .nav-links { display: none; }
-            .hero-content h2 { font-size: 2.5rem; }
+            .hero-content h2 { font-size: 2.3rem; }
             .about-container, .contact-wrapper { flex-direction: column; }
             .form-row { flex-direction: column; gap: 20px; }
         }
@@ -393,8 +498,9 @@
         </div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#villas">Villas & Pools</a></li>
-            <li><a href="#book">Reserve Stay</a></li>
+            <li><a href="#rooms">Rooms & Rates</a></li>
+            <li><a href="#amenities">Amenities</a></li>
+            <li><a href="#book">Reserve</a></li>
         </ul>
     </nav>
 
@@ -405,7 +511,7 @@
         </video>
         <div class="video-overlay"></div>
         <div class="hero-content">
-            <h2>Welcome to Grand Luxury</h2>
+            <h2>Elegant Interiors. Effortless Stays.</h2>
             <p>A Timeless Retreat on the Arabian Gulf</p>
             <a href="#book" class="btn-gold">Book Your Stay</a>
         </div>
@@ -418,42 +524,77 @@
                     <h2>An Elegant Escape</h2>
                 </div>
                 <p>Welcome to Corniche Palace, a premium sanctuary designed to deliver complete privacy, unmatched comfort, and exquisite architectural aesthetics.</p>
-                <p>From spacious layouts meticulously designed for family getaways to top-tier modern accommodations, every detail reflects our commitment to hosting excellence.</p>
+                <p>Forty thoughtfully appointed rooms and suites, an outdoor pool, garden lounges and an inviting coffee shop come together in a setting that feels at once intimate and grand.</p>
                 <p style="margin-top: 25px;">
                     <a href="maps.app.goo.gl/hbgt6mBhSpCMx4PHA" target="_blank" class="btn-gold" style="color:#000;">Get Directions To Resort</a>
                 </p>
             </div>
             <div class="about-image-wrapper">
-                <img src="about-side.jpg.jpeg" alt="Resort Architecture View" class="about-img">
+                <img src="about-side.jpg.jpeg" alt="Resort View" class="about-img">
             </div>
         </div>
     </section>
 
-    <section id="villas" style="background-color: #f4f2ee;">
+    <section id="rooms" style="background-color: #f4f2ee;">
         <div class="section-header">
-            <h2>Our Premium Spaces</h2>
+            <h2>Our Elegant Rooms & Suites</h2>
         </div>
         <div class="grid-container">
             <div class="card">
-                <img src="19712.png.jpeg" alt="Villa Exterior View" class="card-img">
+                <img src="room1.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
-                    <h3>Private Villa Accommodations</h3>
-                    <p>Exclusive detached luxury suites prioritizing personal space, quiet surroundings, and dedicated entrance ways.</p>
+                    <h3>Standard Double Room</h3>
+                    <div class="room-price-tag">From AED <span id="rate-double">350</span> / Night</div>
+                    <p>Serene comfort featuring premium bedding, handcrafted marble finishes, and standard business amenities.</p>
                 </div>
             </div>
             <div class="card">
-                <img src="19725.png.jpeg" alt="Outdoor Swimming Pool" class="card-img">
+                <img src="room2.jpg.jpeg" alt="Deluxe Balcony Sea View" class="card-img">
                 <div class="card-content">
-                    <h3>Crystal Outdoor Pools</h3>
-                    <p>Relax or take a plunge in our beautifully maintained swimming facility featuring immersive deck lounging setups.</p>
+                    <h3>Deluxe Balcony, Sea View</h3>
+                    <div class="room-price-tag">From AED <span id="rate-deluxe">520</span> / Night</div>
+                    <p>Spectacular views overlooking the gulf coast, complete with private balcony structures and lounge setup.</p>
                 </div>
             </div>
             <div class="card">
-                <img src="room1.jpg.jpeg" alt="Master Bedroom Suite" class="card-img">
+                <img src="room3.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
                 <div class="card-content">
-                    <h3>Master Suite Sanctuary</h3>
-                    <p>Equipped with modern ambient ceiling lighting frameworks, premium bedding, and attached lounge areas.</p>
+                    <h3>One Bedroom Suite</h3>
+                    <div class="room-price-tag">From AED <span id="rate-suite1">750</span> / Night</div>
+                    <p>Spacious luxury layouts optimizing separate lounge layouts, individual A/C control, and high-tier facilities.</p>
                 </div>
+            </div>
+            <div class="card">
+                <img src="19712.png.jpeg" alt="Two Bedroom Suite" class="card-img">
+                <div class="card-content">
+                    <h3>Two Bedroom Suite</h3>
+                    <div class="room-price-tag">From AED <span id="rate-suite2">1100</span> / Night</div>
+                    <p>The ultimate family sanctuary layout, combining vast attached restrooms and dedicated hosting features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="amenities" class="amenities-section">
+        <div class="section-header">
+            <h2>World-Class Conveniences</h2>
+        </div>
+        <div class="amenities-grid">
+            <div class="amenity-box">
+                <h4>Outdoor Swimming Pool</h4>
+                <p>Beautifully managed outdoor pool with premium deck sun loungers and a modern layout structure.</p>
+            </div>
+            <div class="amenity-box">
+                <h4>Coffee Shop & Lounge</h4>
+                <p>Serving an all-day relaxed menu of fresh light bites, artisan specialty teas, and refreshing juices.</p>
+            </div>
+            <div class="amenity-box">
+                <h4>In-Room Luxury Set</h4>
+                <p>Flat-screen TV, complimentary high-speed Wi-Fi, premium refrigerator, and individual robust A/C networks.</p>
+            </div>
+            <div class="amenity-box">
+                <h4>24-Hour Hospitality</h4>
+                <p>Complete front desk administrative assistance, round-the-clock room service, and multilingual dedicated staff.</p>
             </div>
         </div>
     </section>
@@ -462,7 +603,6 @@
         <div class="section-header">
             <h2>Secure Your Reservation</h2>
         </div>
-        
         <div class="contact-wrapper">
             <form class="booking-form" action="https://formspree.io/f/mwvjbqdj" method="POST">
                 <div class="form-row">
@@ -488,10 +628,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="room-type">Select Room Type</label>
+                    <label for="room-type">Select Suite Style</label>
                     <select id="room-type" name="room_type">
                         <option value="standard-double">Standard Double Room</option>
-                        <option value="deluxe-balcony-sea-view">Deluxe Balcony, Sea View</option>
+                        <option value="deluxe-balcony-sea-view">Deluxe Balcony sea View</option>
                         <option value="one-bedroom-suite">One Bedroom Suite</option>
                         <option value="two-bedroom-suite">Two Bedroom Suite</option>
                     </select>
@@ -499,11 +639,10 @@
 
                 <div class="form-group">
                     <label for="message">Special Requests / Notes</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Let us know your estimated arrival time or any dietary needs..."></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="Let us know your estimated arrival time or any needs..."></textarea>
                 </div>
 
                 <input type="hidden" name="_subject" value="New Reservation Request - Corniche Palace">
-
                 <button type="submit">Submit Reservation Request</button>
             </form>
 
@@ -526,6 +665,32 @@
         </div>
     </section>
 
+    <section class="admin-rate-panel">
+        <div class="admin-box">
+            <h3>📈 Live Room Rate Controller (Admin Only)</h3>
+            <p style="font-size: 0.85rem; text-align: center; color: #666; margin-bottom: 20px;">Use this internal system tool block to dynamically update prices visible to your website guests instantly.</p>
+            
+            <div class="admin-row">
+                <label>Standard Double Room (AED)</label>
+                <input type="number" id="input-double" value="350">
+            </div>
+            <div class="admin-row">
+                <label>Deluxe Balcony, Sea View (AED)</label>
+                <input type="number" id="input-deluxe" value="520">
+            </div>
+            <div class="admin-row">
+                <label>One Bedroom Suite (AED)</label>
+                <input type="number" id="input-suite1" value="750">
+            </div>
+            <div class="admin-row">
+                <label>Two Bedroom Suite (AED)</label>
+                <input type="number" id="input-suite2" value="1100">
+            </div>
+            
+            <button class="admin-btn" onclick="updateLiveRates()">Update Display Prices</button>
+        </div>
+    </section>
+
     <footer>
         <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
     </footer>
@@ -533,14 +698,29 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var video = document.getElementById("heroVideo");
-            video.currentTime = 05;
+            video.currentTime = 03;
             
             video.addEventListener('seeked', function() {
-                if (video.currentTime < 05) {
-                    video.currentTime = 05;
+                if (video.currentTime < 03) {
+                    video.currentTime = 03;
                 }
             });
         });
+
+        // Dynamic local live update script framework for property administration rates changes
+        function updateLiveRates() {
+            var dbRate = document.getElementById("input-double").value;
+            var dlRate = document.getElementById("input-deluxe").value;
+            var s1Rate = document.getElementById("input-suite1").value;
+            var s2Rate = document.getElementById("input-suite2").value;
+
+            document.getElementById("rate-double").innerText = dbRate;
+            document.getElementById("rate-deluxe").innerText = dlRate;
+            document.getElementById("rate-suite1").innerText = s1Rate;
+            document.getElementById("rate-suite2").innerText = s2Rate;
+
+            alert("Success: Corniche Palace room rates have been securely updated live on the display deck!");
+        }
     </script>
 
 </body>
