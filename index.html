@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corniche Palace | Luxury Stay & Resort</title>
+    <title>Corniche Palace | A Timeless Retreat on the Arabian Gulf</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -140,12 +140,14 @@
             text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
+        /* Custom Updated Tag-line Style */
         .hero-content p {
-            font-size: 1.2rem;
-            letter-spacing: 4px;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 40px;
-            color: var(--text-muted);
+            color: var(--primary-gold);
+            font-weight: 400;
         }
 
         .btn-gold {
@@ -241,7 +243,7 @@
         }
 
         .card:hover {
-            transform: translateY(-50px);
+            transform: translateY(-10px);
         }
 
         .card-img {
@@ -336,7 +338,8 @@
             flex: 0.8;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
+            gap: 30px;
         }
 
         .info-box h4 {
@@ -347,7 +350,18 @@
 
         .info-box p {
             color: var(--text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+        }
+
+        .info-box a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-box a:hover {
+            color: var(--primary-gold);
         }
 
         /* Footer Element */
@@ -363,7 +377,7 @@
         /* Responsive Configuration */
         @media (max-width: 768px) {
             nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
-            .nav-links { display: none; } /* Simplified for code size */
+            .nav-links { display: none; }
             .hero-content h2 { font-size: 2.5rem; }
             .about-container, .contact-wrapper { flex-direction: column; }
             .form-row { flex-direction: column; gap: 20px; }
@@ -385,14 +399,14 @@
     </nav>
 
     <header class="hero">
-        <video class="video-background" autoplay loop muted playsinline>
+        <video id="heroVideo" class="video-background" autoplay loop muted playsinline>
             <source src="hotel.mp4.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="video-overlay"></div>
         <div class="hero-content">
             <h2>Welcome to Grand Luxury</h2>
-            <p>Experience Serenity By The Pristine Coast</p>
+            <p>A Timeless Retreat on the Arabian Gulf</p>
             <a href="#book" class="btn-gold">Book Your Stay</a>
         </div>
     </header>
@@ -406,7 +420,7 @@
                 <p>Welcome to Corniche Palace, a premium sanctuary designed to deliver complete privacy, unmatched comfort, and exquisite architectural aesthetics.</p>
                 <p>From spacious layouts meticulously designed for family getaways to top-tier modern accommodations, every detail reflects our commitment to hosting excellence.</p>
                 <p style="margin-top: 25px;">
-                    <a href="https://maps.google.com/?q=Corniche+Palace" target="_blank" class="btn-gold" style="color:#000;">Get Directions To Resort</a>
+                    <a href="maps.app.goo.gl/hbgt6mBhSpCMx4PHA" target="_blank" class="btn-gold" style="color:#000;">Get Directions To Resort</a>
                 </p>
             </div>
             <div class="about-image-wrapper">
@@ -421,21 +435,21 @@
         </div>
         <div class="grid-container">
             <div class="card">
-                <img src="19712.png.jpeg" alt="Villa 9 Exterior Access Pathway View" class="card-img">
+                <img src="19712.png.jpeg" alt="Villa Exterior View" class="card-img">
                 <div class="card-content">
                     <h3>Private Villa Accommodations</h3>
-                    <p>Exclusive detatched luxury suites prioritizing personal space, quiet surroundings, and dedicated entrance ways.</p>
+                    <p>Exclusive detached luxury suites prioritizing personal space, quiet surroundings, and dedicated entrance ways.</p>
                 </div>
             </div>
             <div class="card">
-                <img src="19725.png.jpeg" alt="Outdoor Swimming Pool & Lounge Layout" class="card-img">
+                <img src="19725.png.jpeg" alt="Outdoor Swimming Pool" class="card-img">
                 <div class="card-content">
                     <h3>Crystal Outdoor Pools</h3>
                     <p>Relax or take a plunge in our beautifully maintained swimming facility featuring immersive deck lounging setups.</p>
                 </div>
             </div>
             <div class="card">
-                <img src="room1.jpg.jpeg" alt="Master Bedroom Suite Living Space Area" class="card-img">
+                <img src="room1.jpg.jpeg" alt="Master Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>Master Suite Sanctuary</h3>
                     <p>Equipped with modern ambient ceiling lighting frameworks, premium bedding, and attached lounge areas.</p>
@@ -474,11 +488,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="room-type">Select Suite Style</label>
+                    <label for="room-type">Select Room Type</label>
                     <select id="room-type" name="room_type">
-                        <option value="private-villa">Private Luxury Villa Suite</option>
-                        <option value="pool-view">Poolside Deluxe View Room</option>
-                        <option value="master-sanctuary">Executive Master Suite</option>
+                        <option value="standard-double">Standard Double Room</option>
+                        <option value="deluxe-balcony-sea-view">Deluxe Balcony, Sea View</option>
+                        <option value="one-bedroom-suite">One Bedroom Suite</option>
+                        <option value="two-bedroom-suite">Two Bedroom Suite</option>
                     </select>
                 </div>
 
@@ -495,11 +510,13 @@
             <div class="contact-info">
                 <div class="info-box">
                     <h4>Direct Contact Helpline</h4>
-                    <p>caravanhotel111@gmail.com</p>
+                    <p><strong>Email:</strong> <a href="mailto:caravanhotel111@gmail.com">caravanhotel111@gmail.com</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+971556770718">+971 55 677 0718</a></p>
                 </div>
                 <div class="info-box">
                     <h4>Property Destination Location</h4>
-                    <p>Corniche Road Palace District, Coastal Zone</p>
+                    <p>No. 1, Rumaila 03, Corniche,</p>
+                    <p>Ajman, United Arab Emirates</p>
                 </div>
                 <div class="info-box">
                     <h4>Check-In Schedules</h4>
@@ -510,8 +527,21 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
+        <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var video = document.getElementById("heroVideo");
+            video.currentTime = 05;
+            
+            video.addEventListener('seeked', function() {
+                if (video.currentTime < 05) {
+                    video.currentTime = 05;
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
