@@ -775,6 +775,7 @@
     </footer>
 
     <script>
+        // Default Base Rates Setup
         var currentHotelRates = {
             "standard-double": 350,
             "one-bedroom-suite": 750,
@@ -787,6 +788,22 @@
             video.addEventListener('seeked', function() {
                 if (video.currentTime < 04) { video.currentTime = 04; }
             });
+
+            // 🌟 LocalStorage eken parana data load karaganna system eka
+            if (localStorage.getItem("corniche_rates")) {
+                currentHotelRates = JSON.parse(localStorage.getItem("corniche_rates"));
+            }
+
+            // Cards wala rates update karanna load weddi
+            document.getElementById("card-rate-double").innerText = currentHotelRates["standard-double"];
+            document.getElementById("card-rate-suite1").innerText = currentHotelRates["one-bedroom-suite"];
+            document.getElementById("card-rate-suite2").innerText = currentHotelRates["two-bedroom-suite"];
+
+            // Admin panel input boxes wala data load weddi penwana values update karanna
+            document.getElementById("input-double").value = currentHotelRates["standard-double"];
+            document.getElementById("input-suite1").value = currentHotelRates["one-bedroom-suite"];
+            document.getElementById("input-suite2").value = currentHotelRates["two-bedroom-suite"];
+
             updateGuestPriceDisplay();
         });
 
@@ -820,16 +837,21 @@
             var rSuite1 = parseInt(document.getElementById("input-suite1").value) || 750;
             var rSuite2 = parseInt(document.getElementById("input-suite2").value) || 1100;
 
+            // Runtime variables update kireema
             currentHotelRates["standard-double"] = rDouble;
             currentHotelRates["one-bedroom-suite"] = rSuite1;
             currentHotelRates["two-bedroom-suite"] = rSuite2;
 
+            // 🌟 Browser LocalStorage ekata permanent save kireema
+            localStorage.setItem("corniche_rates", JSON.stringify(currentHotelRates));
+
+            // Interface labels instant render kireema
             document.getElementById("card-rate-double").innerText = rDouble;
             document.getElementById("card-rate-suite1").innerText = rSuite1;
             document.getElementById("card-rate-suite2").innerText = rSuite2;
 
             updateGuestPriceDisplay();
-            alert("Success: Corniche Palace price modules updated securely!");
+            alert("Success: Corniche Palace price modules updated securely & permanently inside memory!");
             closeAdminModal();
         }
     </script>
