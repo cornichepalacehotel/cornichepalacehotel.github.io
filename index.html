@@ -6,7 +6,7 @@
     <title>Corniche Palace | Your Private Villa Sanctuary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
         /* Design Framework Tokens */
@@ -321,6 +321,15 @@
         .amenity-text-box p {
             font-size: 0.9rem;
             color: #666666;
+        }
+
+        .amenity-card {
+            background: #ffffff;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid #f1ece5;
+            transition: all 0.3s;
         }
 
         /* Booking Section Layout */
@@ -671,8 +680,8 @@
     </footer>
 
     <script>
-        // 🌟 Connected directly with your Google Sheet ID
-        var SHEET_ID = "1KUb3DDY1jrgxOr4JYXWbZnvCGl6O6G5G60TU_wOhc40"; 
+        // 🌟 Connected with your newly published live data stream link
+        var PUBLISHED_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSljbr8YCxpFqcXheuzGqg1Me1nY0uz1A5rDYhEWHm37IeL574kh5jB1KbVP4ue4dMWGLkfWYD_FjpX/pub?output=tsv"; 
         
         // Backup Default Rates
         var currentHotelRates = {
@@ -688,10 +697,8 @@
                 if (video.currentTime < 04) { video.currentTime = 04; }
             });
 
-            // Fetch live data directly from published TSV format stream
-            var tsvUrl = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/pub?output=tsv";
-            
-            fetch(tsvUrl)
+            // Fetch live data directly from published TSV endpoint
+            fetch(PUBLISHED_TSV_URL)
                 .then(response => response.text())
                 .then(data => {
                     var lines = data.split("\n");
@@ -708,7 +715,7 @@
                     renderRatesToUI();
                 })
                 .catch(error => {
-                    console.log("Error loading Google Sheet data stream, using backup defaults:", error);
+                    console.log("Error syncing from web stream, keeping backup constants:", error);
                     renderRatesToUI();
                 });
         });
