@@ -398,15 +398,20 @@
         var currentHotelRates = { "standard-double": 350, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
 
         document.addEventListener("DOMContentLoaded", function() {
+            // වීඩියෝව සකස් කිරීම
             var video = document.getElementById("heroVideo");
-            video.currentTime = 04;
+            if(video) video.currentTime = 4;
             
+            // ආරම්භයේදී පෙරනිමි මිල ගණන් පෙන්වීම
+            renderRatesToUI();
+
+            // Booking form සිදුවීම
             document.getElementById("bookingForm").addEventListener("submit", function(e) {
                 var bookingId = "CP-" + Math.floor(100000 + Math.random() * 900000);
                 document.getElementById("booking_id_input").value = bookingId;
                 document.getElementById("total_price_input").value = document.getElementById("guest-price-screen").innerText;
 
-                // Fill PDF Data
+                // PDF සඳහා දත්ත පිරවීම
                 document.getElementById("lpo-id").innerText = bookingId;
                 document.getElementById("lpo-name").innerText = document.getElementById("name").value;
                 document.getElementById("lpo-room").innerText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
@@ -414,15 +419,16 @@
                 document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
                 document.getElementById("lpo-price").innerText = document.getElementById("guest-price-screen").innerText;
 
-                // Generate PDF
+                // PDF ජනනය කිරීම
                 setTimeout(() => {
                     const element = document.getElementById('lpo-document');
                     html2pdf().from(element).save('Corniche_Palace_Booking_' + bookingId + '.pdf');
                 }, 500);
 
-                alert("Reservation Request Submitted! Your Booking ID: " + bookingId + ". Your LPO will be downloaded automatically.");
+                alert("Reservation Request Submitted! Your Booking ID: " + bookingId);
             });
 
+            // Google Sheets වෙතින් දත්ත ලබා ගැනීම
             fetch(PUBLISHED_TSV_URL)
                 .then(response => response.text())
                 .then(data => {
@@ -435,20 +441,26 @@
                             if (roomKey && !isNaN(roomPrice)) currentHotelRates[roomKey] = roomPrice;
                         }
                     }
-                    renderRatesToUI();
-                });
+                    renderRatesToUI(); // දත්ත ලැබුණු පසු UI අලුත් කිරීම
+                })
+                .catch(error => console.error("Error loading rates:", error));
         });
 
         function renderRatesToUI() {
-            document.getElementById("card-rate-double").innerText = currentHotelRates["standard-double"];
-            document.getElementById("card-rate-suite1").innerText = currentHotelRates["one-bedroom-suite"];
-            document.getElementById("card-rate-suite2").innerText = currentHotelRates["two-bedroom-suite"];
-            updateGuestPriceDisplay();
+            if(document.getElementById("card-rate-double")) {
+                document.getElementById("card-rate-double").innerText = currentHotelRates["standard-double"];
+                document.getElementById("card-rate-suite1").innerText = currentHotelRates["one-bedroom-suite"];
+                document.getElementById("card-rate-suite2").innerText = currentHotelRates["two-bedroom-suite"];
+                updateGuestPriceDisplay();
+            }
         }
 
         function updateGuestPriceDisplay() {
-            var selectedStyle = document.getElementById("room-type").value;
-            document.getElementById("guest-price-screen").innerText = currentHotelRates[selectedStyle];
+            var roomSelect = document.getElementById("room-type");
+            var priceDisplay = document.getElementById("guest-price-screen");
+            if(roomSelect && priceDisplay) {
+                priceDisplay.innerText = currentHotelRates[roomSelect.value];
+            }
         }
     </script>
 </body>
