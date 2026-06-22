@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* Design System Architecture */
         :root {
             --primary-gold: #c5a880;
             --dark-gold: #aa8b5c;
@@ -27,7 +26,6 @@
 
         h1, h2, h3, h4, .hotel-title { font-family: 'Playfair Display', serif; letter-spacing: 1px; }
 
-        /* Navigation Deck */
         nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0)); }
 
         .logo-container { display: flex; align-items: center; gap: 15px; }
@@ -42,7 +40,6 @@
 
         .nav-links a:hover { color: var(--primary-gold); }
 
-        /* Hero Unit Layout */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--pure-white); overflow: hidden; }
 
         .video-background { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; transform: translate(-50%, -50%); object-fit: cover; }
@@ -65,7 +62,6 @@
 
         .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background-color: var(--primary-gold); }
 
-        /* About Block UI */
         .about-container { display: flex; gap: 50px; align-items: center; }
 
         .about-text { flex: 1; }
@@ -80,7 +76,6 @@
 
         .about-gallery-grid img:hover { transform: scale(1.03); }
 
-        /* Rooms Section Layout */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
         .card { background-color: var(--pure-white); border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
@@ -95,7 +90,6 @@
 
         .room-price-tag { color: var(--dark-gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; }
 
-        /* Amenities Section Layout */
         .amenities-section { background-color: var(--pure-white); }
 
         .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
@@ -112,7 +106,6 @@
 
         .amenity-text-box p { font-size: 0.9rem; color: #666666; }
 
-        /* Booking Framework Component */
         .booking-section { background-color: var(--light-cream); color: #1a1a1a; border-top: 1px solid #eee4d6; }
 
         .contact-wrapper { display: flex; gap: 50px; }
@@ -143,8 +136,7 @@
 
         .info-box a { color: #1a1a1a; text-decoration: none; font-weight: 500; }
 
-        /* --- EXCLUSIVE LUXURY CUSTOMER HISTORY FRAMEWAY --- */
-        .booking-history-section { background-color: #ffffff; border-top: 1px solid var(--border-color); display: none; } /* Dynamic Reveal Setup */
+        .booking-history-section { background-color: #ffffff; border-top: 1px solid var(--border-color); display: none; }
         
         .history-dashboard { max-width: 900px; margin: 0 auto; background: #fdfcfb; border: 1px solid var(--border-color); border-radius: 4px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
         
@@ -161,7 +153,6 @@
         .btn-history-download { background: #161c24; color: #ffffff; border: none; padding: 10px 18px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 2px; transition: 0.3s; }
         .btn-history-download:hover { background: var(--dark-gold); }
 
-        /* Dynamic Success Dialog Modals */
         .success-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 20, 28, 0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
         .success-modal { background: #ffffff; width: 100%; max-width: 500px; padding: 40px 30px; border-radius: 4px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); border-top: 5px solid var(--primary-gold); animation: fadeIn 0.4s ease forwards; }
         .success-icon { font-size: 3.5rem; color: #2e7d32; margin-bottom: 15px; }
@@ -178,23 +169,36 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* --- CLEAN RENDERING FLOW PIPELINE (ANTI-BLANK STRUCTURE) --- */
-        /* Standard flow container with hidden visibility prevents html2pdf library breaks */
+        /* PDF Hidden Workspace Container - Fix for Cutoff & Margins */
         .pdf-render-engine-deck {
-            visibility: hidden;
-            opacity: 0;
-            height: 0;
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 0; height: 0;
             overflow: hidden;
-            margin: 0; padding: 0;
         }
 
+        /* Fully structured and clean A4 layout block without cutoff borders */
         #lpo-document {
-            width: 760px !important;
+            width: 680px !important;
+            min-height: 842px;
             background: #ffffff !important;
-            padding: 40px !important;
+            padding: 30px !important;
             color: #000000 !important;
             font-family: 'Montserrat', sans-serif !important;
             box-sizing: border-box !important;
+        }
+
+        #lpo-document table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-bottom: 25px !important;
+            font-size: 11px !important;
+        }
+
+        #lpo-document th, #lpo-document td {
+            padding: 10px !important;
+            border-bottom: 1px solid #eee !important;
         }
 
         @media (max-width: 768px) {
@@ -209,7 +213,7 @@
 
     <nav>
         <div class="logo-container">
-            <img src="14880.png.jpeg" alt="Corniche Palace Logo" class="logo-img">
+            <img src="14880.png.jpeg" alt="Corniche Palace Luxury Logo" class="logo-img">
             <span class="hotel-title">Corniche Palace</span>
         </div>
         <ul class="nav-links">
@@ -437,7 +441,7 @@
                 <div class="stay-meta-box">
                     <span class="status-badge">Confirmed</span>
                     <h4 id="dash-room-style" style="margin-top: 8px;">Standard Double Room</h4>
-                    <p><strong>Booking ID:</strong> <span id="dash-id-str">---</span> &nbsp;|&nbsp; <strong>Reference:</strong> <span id="dash-ref-str">---</span></p>
+                    <p><strong>Booking ID:</strong> <span id="dash-id-str">---</span>  |  <strong>Reference:</strong> <span id="dash-ref-str">---</span></p>
                     <p style="margin-top: 4px; color: #777;">Stay Horizon: <span id="dash-in-date">---</span> to <span id="dash-out-date">---</span></p>
                 </div>
                 <div class="history-actions">
@@ -454,32 +458,33 @@
 
     <div class="pdf-render-engine-deck">
         <div id="lpo-document">
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 25px; padding-bottom: 15px;">
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="14880.png.jpeg" alt="Logo" style="height: 65px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
-                    <div>
-                        <h1 style="margin: 0; font-size: 22px; font-family: 'Playfair Display', serif; color: #111; letter-spacing: 0.5px; text-transform: uppercase;">CORNICHE PALACE</h1>
+            <div style="display: table; width: 100%; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 15px;">
+                <div style="display: table-cell; vertical-align: middle; width: 50%;">
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <img src="14880.png.jpeg" alt="Resort Logo Layout" style="height: 60px; width: auto; border-radius: 50%; border: 1px solid #c5a880; margin-right: 12px;">
+                    </div>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <h1 style="margin: 0; font-size: 20px; font-family: 'Playfair Display', serif; color: #111; letter-spacing: 0.5px; text-transform: uppercase;">CORNICHE PALACE</h1>
                         <p style="margin: 2px 0 0 0; font-size: 11px; color: #555;">HOTEL By nutmeg</p>
                         <p style="margin: 1px 0 0 0; font-size: 10px; color: #777;">Ajman, United Arab Emirates</p>
-                        <p style="margin: 1px 0 0 0; font-size: 10px; color: #777;">Email: reservations@cornichepalace.com</p>
                     </div>
                 </div>
-                <div style="text-align: right;">
-                    <h2 style="margin: 0; font-size: 18px; color: #aa8b5c; font-family: 'Playfair Display', serif; letter-spacing: 0.5px;">LOCAL PURCHASE ORDER</h2>
-                    <p style="margin: 4px 0 0 0; font-size: 11px;"><strong>LPO NO:</strong> <span id="lpo-id">CP-2026-00124</span></p>
-                    <p style="margin: 2px 0 0 0; font-size: 11px;"><strong>Booking Ref:</strong> <span id="lpo-ref">AG-2024260688</span></p>
+                <div style="display: table-cell; vertical-align: middle; width: 50%; text-align: right;">
+                    <h2 style="margin: 0; font-size: 16px; color: #aa8b5c; font-family: 'Playfair Display', serif; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 700;">BOOKING REQUEST CONFIRMATION</h2>
+                    <p style="margin: 5px 0 0 0; font-size: 11px;"><strong>Booking ID:</strong> <span id="lpo-id">CP-2026-00124</span></p>
+                    <p style="margin: 2px 0 0 0; font-size: 11px;"><strong>Reference:</strong> <span id="lpo-ref">AG-2024260688</span></p>
                     <p style="margin: 2px 0 0 0; font-size: 10px; color:#666;">Date: June 22, 2026</p>
                 </div>
             </div>
             
-            <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 11px; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                <div>
+            <div style="display: table; width: 100%; margin-bottom: 20px; font-size: 11px; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <div style="display: table-cell; width: 50%; text-align: left;">
                     <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase; font-size: 11px;">Vendor / Agency Details</h4>
                     <p><strong>Name:</strong> Agoda Company Pte, Ltd.</p>
                     <p>Address: 36 Robinson Road, City House #20-01, Singapore 068877</p>
                     <p>Email: biz@agoda.com</p>
                 </div>
-                <div style="text-align: right;">
+                <div style="display: table-cell; width: 50%; text-align: right;">
                     <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase; font-size: 11px;">Guest & Stay Details</h4>
                     <p><strong>Guest Name:</strong> <span id="lpo-name">Shehan Lakthilinage</span></p>
                     <p><strong>Room Style:</strong> <span id="lpo-room">Standard Double Room</span></p>
@@ -487,63 +492,48 @@
                 </div>
             </div>
 
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 11px; color: #000000;">
+            <table>
                 <thead>
                     <tr style="background: #fbf9f6; border-bottom: 1px solid #000;">
-                        <th style="padding: 10px; text-align: left; font-weight: 600;">Description / Room Type</th>
-                        <th style="padding: 10px; text-align: center; font-weight: 600;">Check-In</th>
-                        <th style="padding: 10px; text-align: center; font-weight: 600;">Check-Out</th>
-                        <th style="padding: 10px; text-align: right; font-weight: 600;">Rate (AED)</th>
+                        <th style="text-align: left; font-weight: 600;">Description / Room Type</th>
+                        <th style="text-align: center; font-weight: 600;">Check-In</th>
+                        <th style="text-align: center; font-weight: 600;">Check-Out</th>
+                        <th style="text-align: right; font-weight: 600;">Rate (AED)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 10px;">
+                    <tr>
+                        <td style="text-align: left;">
                             <span id="lpo-table-room-name" style="font-weight: 600;">Standard Double Room</span><br>
                             <span style="font-size: 10px; color: #666;">Rate Plan: Beds Network - Room Only</span>
                         </td>
-                        <td style="padding: 12px 10px; text-align: center;" id="lpo-in">June 19, 2026</td>
-                        <td style="padding: 12px 10px; text-align: center;" id="lpo-out">June 20, 2026</td>
-                        <td style="padding: 12px 10px; text-align: right; font-weight: 500;" id="lpo-base-price">130.00</td>
+                        <td style="text-align: center;" id="lpo-in">June 19, 2026</td>
+                        <td style="text-align: center;" id="lpo-out">June 20, 2026</td>
+                        <td style="text-align: right; font-weight: 500;" id="lpo-base-price">130.00</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td colspan="3" style="padding: 8px 10px; text-align: right; color: #555;">Taxes & Fees (Service Charge & Tourism Fees):</td>
-                        <td style="padding: 8px 10px; text-align: right; color: #555;" id="lpo-tax-price">22.94</td>
+                    <tr>
+                        <td colspan="3" style="text-align: right; color: #555;">Taxes & Fees (Service Charge & Tourism Fees):</td>
+                        <td style="text-align: right; color: #555;" id="lpo-tax-price">22.94</td>
                     </tr>
                     <tr style="background: #fcfbfa; font-weight: 600; font-size: 12px;">
-                        <td colspan="3" style="padding: 12px 10px; text-align: right; color: #111;">Grand Total:</td>
-                        <td style="padding: 12px 10px; text-align: right; color: #aa8b5c; font-size: 13px;" id="lpo-grand-total">AED 152.94</td>
+                        <td colspan="3" style="text-align: right; color: #111; border-bottom: none;">Grand Total:</td>
+                        <td style="text-align: right; color: #aa8b5c; font-size: 13px; border-bottom: none;" id="lpo-grand-total">AED 152.94</td>
                     </tr>
                 </tbody>
-            </tbody></table>
+            </table>
 
-            <div style="font-size: 10px; color: #555; line-height: 1.6; margin-bottom: 40px; text-align: left;">
+            <div style="font-size: 10px; color: #555; line-height: 1.6; text-align: left; margin-top: 15px;">
                 <h4 style="color: #111; margin-bottom: 4px; font-size: 10px; text-transform: uppercase;">Terms & Conditions / Cancellation Policy</h4>
-                <p>• This booking is Non-Refundable and cannot be amended or modified.</p>
+                <p>• This booking request is Non-Refundable and cannot be amended or modified.</p>
                 <p>• Failure to arrive at the hotel will be treated as a No-Show and will incur a charge of 100% of the booking value.</p>
-                <p>• Free WiFi and Parking are included as part of this reservation package.</p>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; margin-top: 50px; font-size: 10px; text-align: center;">
-                <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
-                    <p><strong>Prepared By</strong></p>
-                    <p style="color:#777; font-size: 9px;">Front Office / Reservation Clerk</p>
-                </div>
-                <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
-                    <p><strong>Verified By</strong></p>
-                    <p style="color:#777; font-size: 9px;">Accounts Department</p>
-                </div>
-                <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
-                    <p><strong>Authorized Approved</strong></p>
-                    <p style="color:#777; font-size: 9px;">Hotel Management / Stamp</p>
-                </div>
+                <p>• Free WiFi and Parking are included seamlessly as part of this reservation package.</p>
             </div>
         </div>
     </div>
 
     <div id="successOverlay" class="success-overlay">
         <div class="success-modal">
-            <div class="success-icon">✓</div>
+            <div class="success-icon">&checkmark;</div>
             <h3>Request Processed!</h3>
             <p>Your luxury reservation records has been created. We have synchronized your active statement history directly into the account deck down below.</p>
             <div class="success-action-btns">
@@ -585,7 +575,6 @@
 
                 document.getElementById("total_price_input").value = currentGrandTotal;
 
-                // Sync Core Engine Dataset Elements
                 document.getElementById("lpo-id").innerText = generatedBookingID;
                 document.getElementById("lpo-ref").innerText = generatedRef;
                 document.getElementById("lpo-name").innerText = clientName;
@@ -596,7 +585,6 @@
                 document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
                 document.getElementById("lpo-grand-total").innerText = "AED " + currentGrandTotal.toFixed(2);
 
-                // Sync Dynamic Customer History Dashboard Elements
                 document.getElementById("dash-user-name").innerText = clientName;
                 document.getElementById("dash-room-style").innerText = selectedRoomText;
                 document.getElementById("dash-id-str").innerText = generatedBookingID;
@@ -612,11 +600,11 @@
                     body: formData,
                     headers: { 'Accept': 'application/json' }
                 })
-                .then(response => {
+                .then(function(response) {
                     submitBtn.innerText = "Submit Reservation Request";
                     submitBtn.disabled = false;
                     if (response.ok) {
-                        document.getElementById("bookingHistorySection").style.display = "block"; // Show Account Dashboard
+                        document.getElementById("bookingHistorySection").style.display = "block"; 
                         document.getElementById("successOverlay").style.display = "flex";
                         document.getElementById("bookingForm").reset();
                         updateGuestPriceDisplay();
@@ -624,7 +612,7 @@
                         alert("Submission failure. Please verify configuration parameters.");
                     }
                 })
-                .catch(error => {
+                .catch(function(error) {
                     submitBtn.innerText = "Submit Reservation Request";
                     submitBtn.disabled = false;
                     alert("Network framework diagnostic pipeline failure.");
@@ -632,8 +620,8 @@
             });
 
             fetch(PUBLISHED_TSV_URL)
-                .then(response => response.text())
-                .then(data => {
+                .then(function(response) { return response.text(); })
+                .then(function(data) {
                     var lines = data.split("\n");
                     for (var i = 1; i < lines.length; i++) {
                         var parts = lines[i].split("\t");
@@ -647,18 +635,18 @@
                     }
                     renderRatesToUI(); 
                 })
-                .catch(error => console.error("Sheet Connection Refused:", error));
+                .catch(function(error) { console.error("Sheet Connection Refused:", error); });
         });
 
         function triggerLPODownload() {
             var lpoTarget = document.getElementById('lpo-document');
             
             var opt = {
-                margin: [10, 10, 10, 10],
-                filename: 'CP_Invoice_Statement_' + generatedBookingID + '.pdf',
+                margin: [0, 0, 0, 0],
+                filename: 'CP_Booking_Confirmation_' + generatedBookingID + '.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
-                    scale: 2, 
+                    scale: 2.5, 
                     useCORS: true, 
                     logging: false, 
                     letterRendering: true,
@@ -667,7 +655,6 @@
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Executes smoothly inside normal DOM rendering streams
             html2pdf().set(opt).from(lpoTarget).save();
         }
 
