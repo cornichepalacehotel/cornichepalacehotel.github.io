@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* Design Framework Tokens */
+        /* Design System Architecture */
         :root {
             --primary-gold: #c5a880;
             --dark-gold: #aa8b5c;
@@ -18,6 +18,7 @@
             --light-cream: #fbf9f6;
             --pure-white: #ffffff;
             --luxury-gray: #555555;
+            --border-color: #eee4d6;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,7 +27,7 @@
 
         h1, h2, h3, h4, .hotel-title { font-family: 'Playfair Display', serif; letter-spacing: 1px; }
 
-        /* Top Brand Navigation Deck */
+        /* Navigation Deck */
         nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0)); }
 
         .logo-container { display: flex; align-items: center; gap: 15px; }
@@ -41,7 +42,7 @@
 
         .nav-links a:hover { color: var(--primary-gold); }
 
-        /* Dynamic Video Hero Frame */
+        /* Hero Unit Layout */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--pure-white); overflow: hidden; }
 
         .video-background { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; transform: translate(-50%, -50%); object-fit: cover; }
@@ -64,7 +65,7 @@
 
         .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background-color: var(--primary-gold); }
 
-        /* About Component Block */
+        /* About Block UI */
         .about-container { display: flex; gap: 50px; align-items: center; }
 
         .about-text { flex: 1; }
@@ -79,7 +80,7 @@
 
         .about-gallery-grid img:hover { transform: scale(1.03); }
 
-        /* Rooms Structure Container */
+        /* Rooms Section Layout */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
         .card { background-color: var(--pure-white); border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
@@ -94,7 +95,7 @@
 
         .room-price-tag { color: var(--dark-gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; }
 
-        /* Amenities Section */
+        /* Amenities Section Layout */
         .amenities-section { background-color: var(--pure-white); }
 
         .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
@@ -111,7 +112,7 @@
 
         .amenity-text-box p { font-size: 0.9rem; color: #666666; }
 
-        /* Booking Section Wrapper */
+        /* Booking Framework Component */
         .booking-section { background-color: var(--light-cream); color: #1a1a1a; border-top: 1px solid #eee4d6; }
 
         .contact-wrapper { display: flex; gap: 50px; }
@@ -142,15 +143,34 @@
 
         .info-box a { color: #1a1a1a; text-decoration: none; font-weight: 500; }
 
-        /* Dynamic Success Overlay Control Window */
+        /* --- EXCLUSIVE LUXURY CUSTOMER HISTORY FRAMEWAY --- */
+        .booking-history-section { background-color: #ffffff; border-top: 1px solid var(--border-color); display: none; } /* Dynamic Reveal Setup */
+        
+        .history-dashboard { max-width: 900px; margin: 0 auto; background: #fdfcfb; border: 1px solid var(--border-color); border-radius: 4px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 15px; margin-bottom: 25px; }
+        .dashboard-user-badge h3 { font-size: 1.6rem; color: #111; }
+        .dashboard-user-badge p { font-size: 0.85rem; color: #666; font-weight: 500; }
+        
+        .history-timeline-card { background: #ffffff; border: 1px solid #f1ece5; border-radius: 4px; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .stay-meta-box h4 { font-size: 1.2rem; color: #111; margin-bottom: 5px; }
+        .stay-meta-box p { font-size: 0.85rem; color: #555; line-height: 1.4; }
+        
+        .history-actions { text-align: right; display: flex; flex-direction: column; gap: 10px; }
+        .status-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 4px 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 20px; letter-spacing: 0.5px; text-align: center; }
+        .btn-history-download { background: #161c24; color: #ffffff; border: none; padding: 10px 18px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 2px; transition: 0.3s; }
+        .btn-history-download:hover { background: var(--dark-gold); }
+
+        /* Dynamic Success Dialog Modals */
         .success-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 20, 28, 0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
         .success-modal { background: #ffffff; width: 100%; max-width: 500px; padding: 40px 30px; border-radius: 4px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); border-top: 5px solid var(--primary-gold); animation: fadeIn 0.4s ease forwards; }
         .success-icon { font-size: 3.5rem; color: #2e7d32; margin-bottom: 15px; }
         .success-modal h3 { font-size: 1.8rem; margin-bottom: 10px; color: #111; font-family: 'Playfair Display', serif; }
         .success-modal p { color: #555; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
         .success-action-btns { display: flex; flex-direction: column; gap: 12px; }
-        .btn-download { background: var(--primary-gold); color: #000; padding: 14px; border: none; text-transform: uppercase; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; border-radius: 2px; transition: 0.3s; width: 100%; }
-        .btn-download:hover { background: var(--dark-gold); color: #fff; }
+        
+        .btn-modal-action { background: var(--primary-gold); color: #000; padding: 14px; border: none; text-transform: uppercase; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; border-radius: 2px; transition: 0.3s; width: 100%; }
+        .btn-modal-action:hover { background: var(--dark-gold); color: #fff; }
         .btn-close-modal { background: #f4f2ee; color: #333; padding: 12px; border: none; text-transform: uppercase; font-weight: 500; font-size: 0.8rem; cursor: pointer; border-radius: 2px; width: 100%; }
         .btn-close-modal:hover { background: #eadecc; }
 
@@ -158,15 +178,14 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* --- ANTI-BLANK ENGINE DECK (FIXED!) --- */
-        /* Absolute positions or left -9999px breaks html2pdf engine. We use standard flow with opacity/visibility control instead. */
+        /* --- CLEAN RENDERING FLOW PIPELINE (ANTI-BLANK STRUCTURE) --- */
+        /* Standard flow container with hidden visibility prevents html2pdf library breaks */
         .pdf-render-engine-deck {
-            opacity: 0;
             visibility: hidden;
+            opacity: 0;
             height: 0;
             overflow: hidden;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
         }
 
         #lpo-document {
@@ -399,6 +418,36 @@
         </div>
     </section>
 
+    <section id="bookingHistorySection" class="booking-history-section">
+        <div class="section-header">
+            <h2>Your Account Activity</h2>
+        </div>
+        <div class="history-dashboard">
+            <div class="dashboard-header">
+                <div class="dashboard-user-badge">
+                    <h3 id="dash-user-name">Guest Profile</h3>
+                    <p>Verified Elite Membership Account</p>
+                </div>
+                <div style="font-size: 0.85rem; color: #555; font-weight: 500; text-align: right;">
+                    Active Bookings: 1
+                </div>
+            </div>
+            
+            <div class="history-timeline-card">
+                <div class="stay-meta-box">
+                    <span class="status-badge">Confirmed</span>
+                    <h4 id="dash-room-style" style="margin-top: 8px;">Standard Double Room</h4>
+                    <p><strong>Booking ID:</strong> <span id="dash-id-str">---</span> &nbsp;|&nbsp; <strong>Reference:</strong> <span id="dash-ref-str">---</span></p>
+                    <p style="margin-top: 4px; color: #777;">Stay Horizon: <span id="dash-in-date">---</span> to <span id="dash-out-date">---</span></p>
+                </div>
+                <div class="history-actions">
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--dark-gold);" id="dash-total-val">AED 152.94</div>
+                    <button type="button" class="btn-history-download" onclick="triggerLPODownload()">Download Invoice PDF</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
     </footer>
@@ -466,7 +515,7 @@
                         <td style="padding: 12px 10px; text-align: right; color: #aa8b5c; font-size: 13px;" id="lpo-grand-total">AED 152.94</td>
                     </tr>
                 </tbody>
-            </table>
+            </tbody></table>
 
             <div style="font-size: 10px; color: #555; line-height: 1.6; margin-bottom: 40px; text-align: left;">
                 <h4 style="color: #111; margin-bottom: 4px; font-size: 10px; text-transform: uppercase;">Terms & Conditions / Cancellation Policy</h4>
@@ -495,11 +544,11 @@
     <div id="successOverlay" class="success-overlay">
         <div class="success-modal">
             <div class="success-icon">✓</div>
-            <h3>Request Successful!</h3>
-            <p>Thank you! Your reservation request data has been delivered successfully to our desk. You can now download your official processed LPO receipt below.</p>
+            <h3>Request Processed!</h3>
+            <p>Your luxury reservation records has been created. We have synchronized your active statement history directly into the account deck down below.</p>
             <div class="success-action-btns">
-                <button type="button" class="btn-download" id="downloadBtn" onclick="triggerLPODownload()">Download LPO Receipt (PDF)</button>
-                <button type="button" class="btn-close-modal" onclick="closeSuccessModal()">Close Window</button>
+                <button type="button" class="btn-modal-action" onclick="scrollToHistory()">View Booking History Deck</button>
+                <button type="button" class="btn-close-modal" onclick="closeSuccessModal()">Close</button>
             </div>
         </div>
     </div>
@@ -528,6 +577,7 @@
                 
                 document.getElementById("booking_id_input").value = generatedBookingID;
                 
+                var clientName = document.getElementById("name").value;
                 var selectedRoomText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
                 var currentGrandTotal = parseFloat(document.getElementById("guest-price-screen").innerText) || 152.94;
                 var basePrice = currentGrandTotal - 22.94;
@@ -535,16 +585,25 @@
 
                 document.getElementById("total_price_input").value = currentGrandTotal;
 
-                // UI Node Updates dynamically
+                // Sync Core Engine Dataset Elements
                 document.getElementById("lpo-id").innerText = generatedBookingID;
                 document.getElementById("lpo-ref").innerText = generatedRef;
-                document.getElementById("lpo-name").innerText = document.getElementById("name").value;
+                document.getElementById("lpo-name").innerText = clientName;
                 document.getElementById("lpo-room").innerText = selectedRoomText;
                 document.getElementById("lpo-table-room-name").innerText = selectedRoomText;
                 document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
                 document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
                 document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
                 document.getElementById("lpo-grand-total").innerText = "AED " + currentGrandTotal.toFixed(2);
+
+                // Sync Dynamic Customer History Dashboard Elements
+                document.getElementById("dash-user-name").innerText = clientName;
+                document.getElementById("dash-room-style").innerText = selectedRoomText;
+                document.getElementById("dash-id-str").innerText = generatedBookingID;
+                document.getElementById("dash-ref-str").innerText = generatedRef;
+                document.getElementById("dash-in-date").innerText = document.getElementById("checkin").value;
+                document.getElementById("dash-out-date").innerText = document.getElementById("checkout").value;
+                document.getElementById("dash-total-val").innerText = "AED " + currentGrandTotal.toFixed(2);
 
                 var formData = new FormData(this);
 
@@ -557,18 +616,18 @@
                     submitBtn.innerText = "Submit Reservation Request";
                     submitBtn.disabled = false;
                     if (response.ok) {
+                        document.getElementById("bookingHistorySection").style.display = "block"; // Show Account Dashboard
                         document.getElementById("successOverlay").style.display = "flex";
                         document.getElementById("bookingForm").reset();
                         updateGuestPriceDisplay();
                     } else {
-                        alert("Submission failure. Please verify email routing fields.");
+                        alert("Submission failure. Please verify configuration parameters.");
                     }
                 })
                 .catch(error => {
                     submitBtn.innerText = "Submit Reservation Request";
                     submitBtn.disabled = false;
-                    console.error("AJAX Error:", error);
-                    alert("Network configuration error.");
+                    alert("Network framework diagnostic pipeline failure.");
                 });
             });
 
@@ -588,42 +647,33 @@
                     }
                     renderRatesToUI(); 
                 })
-                .catch(error => console.error("Spreadsheet Sync error:", error));
+                .catch(error => console.error("Sheet Connection Refused:", error));
         });
 
         function triggerLPODownload() {
-            var btn = document.getElementById("downloadBtn");
-            btn.innerText = "Generating PDF...";
-            btn.disabled = true;
+            var lpoTarget = document.getElementById('lpo-document');
+            
+            var opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'CP_Invoice_Statement_' + generatedBookingID + '.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    logging: false, 
+                    letterRendering: true,
+                    scrollY: 0, scrollX: 0
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
 
-            // Give a clean 400ms delay to ensure DOM structures and graphics pipeline are fully active
-            setTimeout(function() {
-                var lpoTarget = document.getElementById('lpo-document');
-                
-                var opt = {
-                    margin: [10, 10, 10, 10],
-                    filename: 'Corniche_Palace_LPO_' + generatedBookingID + '.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { 
-                        scale: 2, 
-                        useCORS: true, 
-                        logging: false, 
-                        letterRendering: true,
-                        scrollY: 0,
-                        scrollX: 0
-                    },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
+            // Executes smoothly inside normal DOM rendering streams
+            html2pdf().set(opt).from(lpoTarget).save();
+        }
 
-                html2pdf().set(opt).from(lpoTarget).save().then(function() {
-                    btn.innerText = "Download LPO Receipt (PDF)";
-                    btn.disabled = false;
-                }).catch(function(err) {
-                    console.error("PDF Engine Error:", err);
-                    btn.innerText = "Download LPO Receipt (PDF)";
-                    btn.disabled = false;
-                });
-            }, 400);
+        function scrollToHistory() {
+            closeSuccessModal();
+            document.getElementById("bookingHistorySection").scrollIntoView({ behavior: 'smooth' });
         }
 
         function closeSuccessModal() {
