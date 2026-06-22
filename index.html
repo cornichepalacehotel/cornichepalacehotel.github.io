@@ -3,104 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corniche Palace | Booking Confirmation</title>
+    <meta name="description" content="Experience luxury and privacy at Corniche Palace, Ajman. Offering 40 premium rooms, suites, and world-class amenities for a perfect stay in the UAE.">
+    <meta name="keywords" content="Corniche Palace, Hotel in Ajman, Luxury Suites Ajman, Resort Ajman, Private Villa Sanctuary, Hotel Accommodation UAE">
+    <title>Corniche Palace | Your Private Villa Sanctuary</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* Design Framework Tokens */
         :root {
             --primary-gold: #c5a880;
             --dark-gold: #aa8b5c;
             --bg-dark: #0f141c;
             --light-cream: #fbf9f6;
             --pure-white: #ffffff;
+            --luxury-gray: #555555;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #fcfbfa; color: #333333; line-height: 1.6; }
-        h1, h2, h3, .hotel-title { font-family: 'Playfair Display', serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* Navigation */
-        nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0)); }
-        .logo-container { display: flex; align-items: center; gap: 15px; }
-        .logo-img { height: 60px; width: auto; border-radius: 50%; border: 2px solid var(--primary-gold); }
-        .hotel-title { color: var(--primary-gold); font-size: 2rem; font-weight: 700; }
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { color: var(--pure-white); text-decoration: none; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; }
-
-        /* Hero */
-        .hero { position: relative; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--pure-white); overflow: hidden; }
-        .video-background { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; transform: translate(-50%, -50%); object-fit: cover; }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 20, 28, 0.55); z-index: -1; }
-        .hero-content h2 { font-size: 3.5rem; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-content p { font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; color: var(--primary-gold); }
-        .btn-gold { display: inline-block; padding: 15px 35px; background-color: var(--primary-gold); color: #000000; text-decoration: none; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; }
-
-        /* Rooms Section */
-        section { padding: 80px 10%; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.8rem; position: relative; padding-bottom: 15px; }
-        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background-color: var(--primary-gold); }
-        
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background-color: var(--pure-white); border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .card-img { width: 100%; height: 250px; object-fit: cover; }
-        .card-content { padding: 25px; }
-        .room-price-tag { color: var(--dark-gold); font-weight: 600; font-size: 1.1rem; margin-top: 10px; }
-
-        /* Booking Form */
-        .booking-section { background-color: var(--light-cream); }
-        .booking-form { display: flex; flex-direction: column; gap: 20px; max-width: 700px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .form-row { display: flex; gap: 20px; }
-        .form-group { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .form-group label { font-size: 0.85rem; text-transform: uppercase; color: var(--dark-gold); font-weight: 600; }
-        .form-group input, .form-group textarea, .form-group select { padding: 13px; border: 1px solid #dcd1c4; border-radius: 4px; font-size: 0.95rem; width: 100%; }
-        .live-price-calculator { background: #fdfdfd; border: 1px dashed var(--primary-gold); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
-        .live-price-calculator span { font-size: 1.4rem; color: var(--dark-gold); font-weight: 700; }
-        .booking-form button { background-color: #161c24; color: var(--pure-white); padding: 16px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; cursor: pointer; border-radius: 2px; }
-        .booking-form button:hover { background-color: var(--dark-gold); }
-
-        footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
-
-        /* HTML-to-PDF Template Design */
-        #lpo-document {
-            display: none;
-            width: 750px;
-            padding: 40px;
-            background-color: #ffffff;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fcfbfa;
             color: #333333;
-            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .pdf-header {
+
+        h1, h2, h3, h4, h5, h6, .hotel-title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Top Brand Navigation Deck */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #c5a880;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+            padding: 20px 50px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
         }
-        .pdf-hotel-info { display: flex; align-items: center; gap: 15px; }
-        .pdf-logo { height: 75px; width: auto; border-radius: 50%; }
-        .pdf-hotel-details h2 { font-size: 24px; margin: 0; color: #000; }
-        .pdf-hotel-details p { font-size: 12px; color: #666; margin: 3px 0 0 0; }
-        
-        .pdf-title-block { text-align: right; }
-        .pdf-title-block h1 { font-size: 22px; margin: 0; color: #aa8b5c; text-transform: uppercase; }
-        .pdf-title-block p { font-size: 13px; margin: 4px 0 0 0; font-weight: bold; }
 
-        .pdf-grid { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 25px; }
-        .pdf-box { flex: 1; border: 1px solid #e2dbd2; background: #fdfcfb; padding: 15px; border-radius: 4px; }
-        .pdf-box h3 { font-size: 13px; color: #aa8b5c; margin: 0 0 8px 0; text-transform: uppercase; border-bottom: 1px solid #e2dbd2; padding-bottom: 4px; }
-        .pdf-box p { font-size: 13px; margin: 4px 0; color: #444; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-        .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-        .pdf-table th { background-color: #161c24; color: #ffffff; padding: 10px; text-align: left; font-size: 12px; text-transform: uppercase; }
-        .pdf-table td { border: 1px solid #e2dbd2; padding: 12px; font-size: 13px; }
-        .pdf-total-row { background-color: #fdfcfb; font-weight: bold; font-size: 15px; }
+        .logo-img {
+            height: 60px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-gold);
+        }
 
-        .pdf-footer { margin-top: 30px; font-size: 11px; color: #666; border-top: 1px solid #eee; padding-top: 15px; text-align: center; }
+        .hotel-title {
+            color: var(--primary-gold);
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Dynamic Video Hero Frame */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--pure-white);
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 20, 28, 0.55);
+            z-index: -1;
+        }
+
+        .hero-content h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            color: var(--primary-gold);
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--primary-gold);
+            color: #000000;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            border-radius: 2px;
+            transition: all 0.3s;
+            border: 1px solid var(--primary-gold);
+        }
+
+        .btn-gold:hover {
+            background-color: transparent;
+            color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.4);
+        }
+
+        /* Editorial Sections Layout */
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #1a1a1a;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--primary-gold);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--dark-gold);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .about-gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .about-gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Luxury Showcase Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--pure-white);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .card-content p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .room-price-tag {
+            color: var(--dark-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .amenities-section {
+            background-color: var(--bg-dark);
+            color: var(--pure-white);
+        }
+
+        .amenities-section .section-header h2 {
+            color: var(--pure-white);
+        }
+
+        .amenity-card {
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .amenity-card h3 {
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+        }
+
+        /* Transactional Interface (Booking Engine) */
+        .booking-section {
+            background-color: var(--light-cream);
+            color: #1a1a1a;
+            border-top: 1px solid #eee4d6;
+        }
+
+        .contact-wrapper {
+            display: flex;
+            gap: 50px;
+        }
+
+        .booking-form {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--dark-gold);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 13px;
+            border: 1px solid #dcd1c4;
+            border-radius: 4px;
+            outline: none;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+        }
+
+        .live-price-calculator {
+            background: #fdfdfd;
+            border: 1px dashed var(--primary-gold);
+            padding: 15px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .live-price-calculator p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .live-price-calculator div {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--dark-gold);
+            font-weight: 700;
+        }
+
+        .booking-form button {
+            background-color: #161c24;
+            color: var(--pure-white);
+            padding: 16px;
+            border: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .booking-form button:hover {
+            background-color: var(--dark-gold);
+        }
+
+        .contact-info {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            background-color: var(--pure-white);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .info-item h3 {
+            color: #1a1a1a;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .info-item p {
+            color: #666;
+        }
+
+        footer {
+            background-color: #0b0e14;
+            color: #666666;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        /* Hidden PDF Structure (Booking Confirmation Template) */
+        #lpo-document {
+            display: none;
+            width: 790px;
+            padding: 45px;
+            background-color: #ffffff;
+            color: #2b2b2b;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            position: relative;
+        }
+
+        .lpo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #c5a880;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .lpo-header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lpo-logo {
+            height: 85px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #c5a880;
+        }
+
+        .lpo-header-left h1 {
+            font-size: 26px;
+            color: #0f141c;
+            margin: 0;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .lpo-header-left p {
+            font-size: 12px;
+            color: #aa8b5c;
+            margin: 3px 0 0 0;
+            font-weight: 600;
+        }
+
+        .lpo-header-right {
+            text-align: right;
+        }
+
+        .lpo-header-right h2 {
+            font-size: 22px;
+            color: #aa8b5c;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .lpo-header-right p {
+            font-size: 13px;
+            margin: 5px 0 0 0;
+            color: #555555;
+        }
+
+        .lpo-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .lpo-meta-box {
+            background-color: #fcfbfa;
+            border: 1px solid #eee4d6;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .lpo-meta-box h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            color: #aa8b5c;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eee4d6;
+            padding-bottom: 6px;
+        }
+
+        .lpo-meta-box p {
+            font-size: 13.5px;
+            margin: 6px 0;
+            color: #444444;
+        }
+
+        .lpo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        .lpo-table th {
+            background-color: #161c24;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-size: 12px;
+            padding: 12px;
+            text-align: left;
+            letter-spacing: 1px;
+        }
+
+        .lpo-table td {
+            padding: 14px 12px;
+            border: 1px solid #e0d8cd;
+            font-size: 14px;
+        }
+
+        .lpo-total-row {
+            background-color: #fbf9f6;
+            font-weight: bold;
+        }
+
+        .lpo-total-row td {
+            font-size: 16px;
+            color: #0f141c;
+            border-top: 2px solid #aa8b5c;
+        }
+
+        .lpo-footer {
+            margin-top: 60px;
+            border-top: 1px solid #e0d8cd;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 11.5px;
+            color: #777777;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero-content h2 {
+                font-size: 2.3rem;
+            }
+            .contact-wrapper {
+                flex-direction: column;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -111,8 +592,10 @@
             <span class="hotel-title">Corniche Palace</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#rooms">Rooms</a></li>
-            <li><a href="#book">Reserve</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#rooms">Rooms & Rates</a></li>
+            <li><a href="#amenities">Amenities</a></li>
+            <li><a href="#book">Reserve Stay</a></li>
         </ul>
     </nav>
 
@@ -123,159 +606,277 @@
         <div class="video-overlay"></div>
         <div class="hero-content">
             <h2>WELCOME TO CORNICHE PALACE</h2>
-            <p>Your Private Villa Sanctuary</p>
-            <a href="#book" class="btn-gold">Book Now</a>
+            <p>A Timeless Retreat on the Arabian Gulf</p>
+            <a href="#book" class="btn-gold">Book Your Private Stay</a>
         </div>
     </header>
 
-    <section id="rooms">
+    <section id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Your Private Villa Sanctuary</h3>
+                <p>Nestled beautifully in Ajman, Corniche Palace combines majestic architectural designs with modern Arabian luxury. Designed as an elite coastal hideaway, we present an atmosphere of unmatched calmness and privacy.</p>
+                <p>Featuring 40 meticulously detailed residential rooms and master configurations, each area showcases exquisite styling, offering panoramic lookouts and absolute comfort for families and global travelers alike.</p>
+            </div>
+            <div class="about-gallery">
+                <img src="room1.jpg.jpeg" alt="Luxury Interior 1">
+                <img src="room2.jpg.jpeg" alt="Luxury Interior 2">
+                <img src="room3.jpg.jpeg" alt="Luxury Interior 3">
+                <img src="room4.jpg.jpeg" alt="Luxury Interior 4">
+            </div>
+        </div>
+    </section>
+
+    <section id="rooms" style="background-color: #f4f2ee;">
         <div class="section-header">
-            <h2>Rooms & Rates</h2>
+            <h2>Our Elegant Rooms & Suites</h2>
         </div>
         <div class="grid-container">
             <div class="card">
                 <img src="room2.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
                     <h3>Standard Double Room</h3>
-                    <div class="room-price-tag">AED <span id="card-rate-double">...</span> / Night</div>
+                    <p>Elegant design featuring a plush king layout, modern ensuite architecture, and beautiful views.</p>
+                    <div class="room-price-tag">From AED <span id="card-rate-double">...</span> / Night</div>
                 </div>
             </div>
             <div class="card">
                 <img src="room1.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>One Bedroom Suite</h3>
-                    <div class="room-price-tag">AED <span id="card-rate-suite1">...</span> / Night</div>
+                    <p>Expansive premier plan showcasing a dedicated formal lounge space and high-end artisanal finishings.</p>
+                    <div class="room-price-tag">From AED <span id="card-rate-suite1">...</span> / Night</div>
                 </div>
             </div>
             <div class="card">
                 <img src="room4.jpg.jpeg" alt="Two Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>Two Bedroom Suite</h3>
-                    <div class="room-price-tag">AED <span id="card-rate-suite2">...</span> / Night</div>
+                    <p>The ultimate family sanctuary layout with dual master units, grand dining capability, and terraces.</p>
+                    <div class="room-price-tag">From AED <span id="card-rate-suite2">...</span> / Night</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="amenities" class="amenities-section">
+        <div class="section-header">
+            <h2>Resort Curations</h2>
+        </div>
+        <div class="grid-container">
+            <div class="amenity-card">
+                <h3>Private Beach Front</h3>
+                <p>Direct shoreline entry with private premium cabanas.</p>
+            </div>
+            <div class="amenity-card">
+                <h3>Artisanal Dining</h3>
+                <p>International master chefs preparing bespoke culinary menus.</p>
+            </div>
+            <div class="amenity-card">
+                <h3>Wellness Oasis</h3>
+                <p>Rejuvenating hydro-spas and state-of-the-art thermal suites.</p>
             </div>
         </div>
     </section>
 
     <section id="book" class="booking-section">
         <div class="section-header">
-            <h2>Reservation Form</h2>
+            <h2>Secure Your Reservation</h2>
         </div>
-        <form id="bookingForm" class="booking-form" action="https://formspree.io/f/mwvjbqdj" method="POST">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
+        <div class="contact-wrapper">
+            <form id="bookingForm" class="booking-form" action="https://formspree.io/f/mwvjbqdj" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+971 XX XXX XXXX" required>
+                    </div>
                 </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkin">Check-In Date</label>
+                        <input type="date" id="checkin" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">Check-Out Date</label>
+                        <input type="date" id="checkout" name="checkout" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <label for="room-type">Select Suite Style</label>
+                    <select id="room-type" name="room_type" onchange="updateGuestPriceDisplay()">
+                        <option value="standard-double">Standard Double Room</option>
+                        <option value="one-bedroom-suite">One Bedroom Suite</option>
+                        <option value="two-bedroom-suite">Two Bedroom Suite</option>
+                    </select>
+                </div>
+
+                <input type="hidden" name="booking_id" id="booking_id_input">
+                <input type="hidden" name="total_price" id="total_price_input">
+
+                <div class="live-price-calculator">
+                    <p>Current Room Daily Rate:</p>
+                    <div>AED <span id="guest-price-screen">...</span> / Night</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Special Requests</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Dietary adjustments, airport transfers, pillow configurations..."></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">Submit Reservation & Generate Confirmation</button>
+            </form>
+
+            <div class="contact-info">
+                <div class="info-item">
+                    <h3>The Location</h3>
+                    <p>No. 1, Rumaila 03, Corniche Road, Ajman, United Arab Emirates</p>
+                </div>
+                <div class="info-item">
+                    <h3>Direct Contact</h3>
+                    <p>Tel: +971 55 677 0718<br>Email: cornichepalace0@gmail.com</p>
+                </div>
+                <div class="info-item">
+                    <h3>Management Office</h3>
+                    <p>Operated & Administered by Nutmeg Luxury Hospitality Group.</p>
                 </div>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="checkin">Check-In Date</label>
-                    <input type="date" id="checkin" name="checkin" required>
-                </div>
-                <div class="form-group">
-                    <label for="checkout">Check-Out Date</label>
-                    <input type="date" id="checkout" name="checkout" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="room-type">Select Room Style</label>
-                <select id="room-type" name="room_type" onchange="updateGuestPriceDisplay()">
-                    <option value="standard-double">Standard Double Room</option>
-                    <option value="one-bedroom-suite">One Bedroom Suite</option>
-                    <option value="two-bedroom-suite">Two Bedroom Suite</option>
-                </select>
-            </div>
-
-            <div class="live-price-calculator">
-                <p>Daily Room Rate:</p>
-                <div>AED <span id="guest-price-screen">...</span></div>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Special Requests</label>
-                <textarea id="message" name="message" rows="3"></textarea>
-            </div>
-
-            <button type="submit">Confirm & Download Voucher</button>
-        </form>
+        </div>
     </section>
 
     <div id="lpo-document">
-        <div class="pdf-header">
-            <div class="pdf-hotel-info">
-                <img src="14880.png.jpeg" class="pdf-logo" alt="Logo">
-                <div class="pdf-hotel-details">
-                    <h2>Corniche Palace</h2>
-                    <p>By nutmeg | Luxury Hotels & Resorts</p>
+        <div class="lpo-header">
+            <div class="lpo-header-left">
+                <img src="14880.png.jpeg" alt="Corniche Palace Logo" class="lpo-logo">
+                <div>
+                    <h1>Corniche Palace</h1>
+                    <p>By nutmeg &bull; Luxury Hotels & Resorts</p>
                 </div>
             </div>
-            <div class="pdf-title-block">
-                <h1>Booking Confirmation</h1>
-                <p>ID: <span id="lpo-id"></span></p>
+            <div class="lpo-header-right">
+                <h2>Booking Confirmation</h2>
+                <p><strong>Booking ID:</strong> <span id="lpo-id"></span></p>
+                <p><strong>Issued:</strong> <span id="current-date"></span></p>
             </div>
         </div>
 
-        <div class="pdf-grid">
-            <div class="pdf-box">
-                <h3>Guest Details</h3>
+        <div class="lpo-meta-grid">
+            <div class="lpo-meta-box">
+                <h3>Guest Information</h3>
                 <p><strong>Name:</strong> <span id="lpo-name"></span></p>
-                <p><strong>Phone:</strong> <span id="lpo-phone"></span></p>
+                <p><strong>Contact:</strong> <span id="lpo-phone"></span></p>
             </div>
-            <div class="pdf-box">
-                <h3>Stay Details</h3>
-                <p><strong>Room Category:</strong> <span id="lpo-room"></span></p>
+            <div class="lpo-meta-box">
+                <h3>Stay Parameters</h3>
+                <p><strong>Selected Suite:</strong> <span id="lpo-room"></span></p>
                 <p><strong>Check-In:</strong> <span id="lpo-in"></span></p>
                 <p><strong>Check-Out:</strong> <span id="lpo-out"></span></p>
             </div>
         </div>
 
-        <table class="pdf-table">
+        <table class="lpo-table">
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Rate per Night</th>
-                    <th>Total Amount</th>
+                    <th style="width: 50%;">Description</th>
+                    <th style="width: 25%;">Daily Baseline</th>
+                    <th style="width: 25%; text-align: right;">Subtotal (AED)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Hotel Accommodation Charges</td>
+                    <td id="lpo-room-desc">Luxury Hotel Room Accommodation Charges</td>
                     <td>AED <span id="lpo-rate"></span></td>
-                    <td>AED <span id="lpo-price"></span></td>
+                    <td style="text-align: right;">AED <span id="lpo-price"></span></td>
                 </tr>
-                <tr class="pdf-total-row">
-                    <td colspan="2" style="text-align: right;">Total Net Payable:</td>
-                    <td>AED <span id="lpo-total"></span></td>
+                <tr class="lpo-total-row">
+                    <td colspan="2" style="text-align: right;">Total Net Amount Payable</td>
+                    <td style="text-align: right;">AED <span id="lpo-total"></span></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="pdf-footer">
-            <p>Corniche Palace, Rumaila 03, Corniche, Ajman, UAE</p>
-            <p>Contact: +971 55 677 0718 | Email: cornichepalace0@gmail.com</p>
+        <div class="lpo-meta-box" style="margin-top: -20px;">
+            <h3>Important Reservation Notices</h3>
+            <p style="font-size: 11px; color: #666;">1. Standard Check-In window opens at 14:00. Room checkout processes must be completed by 12:00 noon.</p>
+            <p style="font-size: 11px; color: #666;">2. Guests must present a government-issued passport or national Emirates identification deck upon arrival check-in.</p>
+            <p style="font-size: 11px; color: #666;">3. All structural pricing transformations made via live Google Sheet sync nodes are locked at the millisecond time-stamp of submission.</p>
+        </div>
+
+        <div class="lpo-footer">
+            <p>Corniche Palace Hotel & Resort, No. 1, Rumaila 03, Corniche, Ajman, UAE</p>
+            <p>Support Operations Desk: +971 55 677 0718 | Email Contact: cornichepalace0@gmail.com</p>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 Corniche Palace. All Rights Reserved.</p>
+        <p>&copy; 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved. Managed by Nutmeg Group.</p>
     </footer>
 
     <script>
-        // Google Sheet URL (නොකැඩී එලෙසම පවතී)
+        // Google Sheets Published Cloud Architecture Key Node Link
         var PUBLISHED_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSljbr8YCxpFqcXheuzGqg1Me1nY0uz1A5rDYhEWHm37IeL574kh5jB1KbVP4ue4dMWGLkfWYD_FjpX/pub?output=tsv"; 
-        var currentHotelRates = { "standard-double": 350, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
+        
+        // Dynamic Fallback Matrix Tokens
+        var currentHotelRates = {
+            "standard-double": 350,
+            "one-bedroom-suite": 750,
+            "two-bedroom-suite": 1100
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
             renderRatesToUI();
 
-            // Google Sheet එකෙන් සජීවීව දත්ත ලබා ගැනීම
+            // Intercept Transaction Form Submission for Voucher Generation
+            document.getElementById("bookingForm").addEventListener("submit", function(e) {
+                e.preventDefault(); 
+
+                var bookingId = "CP-" + Math.floor(100000 + Math.random() * 900000);
+                var rate = document.getElementById("guest-price-screen").innerText;
+                var today = new Date().toLocaleDateString();
+
+                // Inject Structural Values to Voucher Node DOM Elements
+                document.getElementById("lpo-id").innerText = bookingId;
+                document.getElementById("current-date").innerText = today;
+                document.getElementById("lpo-name").innerText = document.getElementById("name").value;
+                document.getElementById("lpo-phone").innerText = document.getElementById("phone").value;
+                document.getElementById("lpo-room").innerText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
+                document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
+                document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
+                document.getElementById("lpo-rate").innerText = rate;
+                document.getElementById("lpo-price").innerText = rate;
+                document.getElementById("lpo-total").innerText = rate;
+
+                // Sync Hidden Fields for Outbound Formspree Payload Package
+                document.getElementById("booking_id_input").value = bookingId;
+                document.getElementById("total_price_input").value = rate;
+
+                const lpoElement = document.getElementById('lpo-document');
+                lpoElement.style.display = 'block'; 
+
+                // Execute HTML-to-PDF Core Assembly
+                setTimeout(() => {
+                    var opt = {
+                        margin: 0,
+                        filename: 'Corniche_Palace_Confirmation_' + bookingId + '.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    };
+
+                    html2pdf().set(opt).from(lpoElement).save().then(() => {
+                        lpoElement.style.display = 'none';
+                        alert("Reservation Successful! Your Booking ID: " + bookingId);
+                        e.target.submit(); // Forward Data Payload to Formspree Endpoint Cloud
+                    });
+                }, 500);
+            });
+
+            // Asynchronous Sync from Google Sheets Core Database
             fetch(PUBLISHED_TSV_URL)
                 .then(response => response.text())
                 .then(data => {
@@ -290,50 +891,8 @@
                             }
                         }
                     }
-                    renderRatesToUI(); // Sheet එක කියවා අවසන් වූ පසු මිල ගණන් අප්ඩේට් කරයි
-                })
-                .catch(err => {
-                    console.log("Error loading Google Sheet, using defaults", err);
                     renderRatesToUI();
                 });
-
-            // Form Submit කිරීම සහ PDF බාගත කිරීම
-            document.getElementById("bookingForm").addEventListener("submit", function(e) {
-                e.preventDefault();
-
-                var bookingId = "CP-" + Math.floor(100000 + Math.random() * 900000);
-                var selectedRate = document.getElementById("guest-price-screen").innerText;
-
-                // PDF එකේ තැන් වලට අදාළ දත්ත ඇතුල් කිරීම
-                document.getElementById("lpo-id").innerText = bookingId;
-                document.getElementById("lpo-name").innerText = document.getElementById("name").value;
-                document.getElementById("lpo-phone").innerText = document.getElementById("phone").value;
-                document.getElementById("lpo-room").innerText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
-                document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
-                document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
-                document.getElementById("lpo-rate").innerText = selectedRate;
-                document.getElementById("lpo-price").innerText = selectedRate;
-                document.getElementById("lpo-total").innerText = selectedRate;
-
-                const lpoElement = document.getElementById('lpo-document');
-                lpoElement.style.display = 'block';
-
-                setTimeout(() => {
-                    var opt = {
-                        margin: 0.2,
-                        filename: 'Booking_Confirmation_' + bookingId + '.pdf',
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2 },
-                        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-                    };
-
-                    html2pdf().set(opt).from(lpoElement).save().then(() => {
-                        lpoElement.style.display = 'none';
-                        alert("Booking Successful! Confirmed ID: " + bookingId);
-                        e.target.submit(); // Formspree එකට දත්ත යැවීම
-                    });
-                }, 500);
-            });
         });
 
         function renderRatesToUI() {
@@ -341,8 +900,8 @@
                 document.getElementById("card-rate-double").innerText = currentHotelRates["standard-double"];
                 document.getElementById("card-rate-suite1").innerText = currentHotelRates["one-bedroom-suite"];
                 document.getElementById("card-rate-suite2").innerText = currentHotelRates["two-bedroom-suite"];
+                updateGuestPriceDisplay();
             }
-            updateGuestPriceDisplay();
         }
 
         function updateGuestPriceDisplay() {
