@@ -144,15 +144,22 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* STABLE OFF-SCREEN PRINT CONTAINER FIX: This keeps the DOM fully loaded without rendering artifacts visually */
-        .lpo-print-container {
-            position: absolute !important;
-            left: -9999px !important;
-            top: 0 !important;
-            width: 750px !important; /* Perfect A4 width boundaries */
+        /* --- THE ULTIMATE BLANK-PDF MEDIA CONFIRMATION FIX --- */
+        /* By default, hide the LPO element gracefully from the main live website view */
+        #lpo-document {
+            display: none !important;
+        }
+
+        /* When html2pdf invokes the render engine, it clones elements or triggers print view styles */
+        /* This ensures that when targetted, it gets solid layout blocks without browser optimization failures */
+        .lpo-print-forced {
+            display: block !important;
+            width: 680px !important;
+            margin: 0 auto !important;
             background: #ffffff !important;
-            padding: 35px !important;
-            display: block !important; /* Fully active in DOM */
+            padding: 30px !important;
+            color: #000000 !important;
+            box-sizing: border-box !important;
         }
 
         @media (max-width: 768px) {
@@ -379,46 +386,87 @@
         </div>
     </section>
 
-    <div id="lpo-document" class="lpo-print-container">
-        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 15px;">
+    <div id="lpo-document">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 25px; padding-bottom: 15px;">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <img src="14880.png.jpeg" alt="Logo" style="height: 70px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
+                <img src="14880.png.jpeg" alt="Logo" style="height: 65px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
                 <div>
-                    <h1 style="margin: 0; font-size: 24px; font-family: 'Playfair Display', serif;">CORNICHE PALACE</h1>
-                    <p style="margin: 2px 0 0 0; font-size: 14px; color: #555;">Ajman, United Arab Emirates</p>
+                    <h1 style="margin: 0; font-size: 22px; font-family: 'Playfair Display', serif; color: #111;">CORNICHE PALACE</h1>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #555; font-family: 'Montserrat', sans-serif;">Ajman, United Arab Emirates</p>
                 </div>
             </div>
-            <div style="text-align: right;">
-                <h2 style="margin: 0; font-size: 20px; color: #aa8b5c; font-family: 'Playfair Display', serif;">Booking Confirmation</h2>
-                <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>ID:</strong> <span id="lpo-id"></span></p>
+            <div style="text-align: right; font-family: 'Montserrat', sans-serif;">
+                <h2 style="margin: 0; font-size: 18px; color: #aa8b5c; font-family: 'Playfair Display', serif;">LOCAL PURCHASE ORDER</h2>
+                <p style="margin: 4px 0 0 0; font-size: 12px;"><strong>LPO NO:</strong> <span id="lpo-id"></span></p>
+                <p style="margin: 2px 0 0 0; font-size: 11px; color:#666;">Date: June 22, 2026</p>
             </div>
         </div>
         
-        <div style="margin-bottom: 20px; font-size: 15px; line-height: 1.6;">
-            <p style="margin: 5px 0;"><strong>Guest Name:</strong> <span id="lpo-name"></span></p>
-            <p style="margin: 5px 0;"><strong>Room Type:</strong> <span id="lpo-room"></span></p>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-family: 'Montserrat', sans-serif; font-size: 12px; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+            <div>
+                <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase;">Vendor / Agency Details</h4>
+                <p><strong>Name:</strong> Agoda Company Pte, Ltd.</p>
+                <p>Address: 36 Robinson Road, City House #20-01, Singapore</p>
+                <p>Email: biz@agoda.com</p>
+            </div>
+            <div style="text-align: right;">
+                <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase;">Guest & Stay Details</h4>
+                <p><strong>Guest Name:</strong> <span id="lpo-name"></span></p>
+                <p><strong>Room Style:</strong> <span id="lpo-room"></span></p>
+                <p>Country: United Arab Emirates</p>
+            </div>
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-family: 'Montserrat', sans-serif; font-size: 12px;">
             <thead>
-                <tr style="background: #fbf9f6;">
-                    <th style="border: 1px solid #ddd; padding: 10px; text-align: center;">Check-In</th>
-                    <th style="border: 1px solid #ddd; padding: 10px; text-align: center;">Check-Out</th>
-                    <th style="border: 1px solid #ddd; padding: 10px; text-align: center;">Rate per Night (AED)</th>
+                <tr style="background: #fbf9f6; border-bottom: 1px solid #000;">
+                    <th style="padding: 10px; text-align: left; font-weight: 600;">Description / Room Type</th>
+                    <th style="padding: 10px; text-align: center; font-weight: 600;">Check-In</th>
+                    <th style="padding: 10px; text-align: center; font-weight: 600;">Check-Out</th>
+                    <th style="padding: 10px; text-align: right; font-weight: 600;">Rate (AED)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;" id="lpo-in"></td>
-                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;" id="lpo-out"></td>
-                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #aa8b5c;" id="lpo-price"></td>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px 10px;">
+                        <span id="lpo-table-room-name" style="font-weight: 600;">Standard Double Room</span><br>
+                        <span style="font-size: 11px; color: #666;">Rate Plan: Beds Network - Room Only</span>
+                    </td>
+                    <td style="padding: 12px 10px; text-align: center;" id="lpo-in"></td>
+                    <td style="padding: 12px 10px; text-align: center;" id="lpo-out"></td>
+                    <td style="padding: 12px 10px; text-align: right; font-weight: 500;" id="lpo-base-price">130.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td colspan="3" style="padding: 10px; text-align: right; color: #555;">Taxes & Fees (Service Charge & Tourism Fees):</td>
+                    <td style="padding: 10px; text-align: right; color: #555;">22.94</td>
+                </tr>
+                <tr style="background: #fcfbfa; font-weight: 600; font-size: 13px;">
+                    <td colspan="3" style="padding: 12px 10px; text-align: right; color: #111;">Grand Total:</td>
+                    <td style="padding: 12px 10px; text-align: right; color: #aa8b5c; font-size: 14px;" id="lpo-grand-total">AED 152.94</td>
                 </tr>
             </tbody>
         </table>
 
-        <div style="border-top: 1px solid #eee; padding-top: 15px; font-size: 13px; color: #666; line-height: 1.6;">
-            <p style="margin: 5px 0; color: #333;">Thank you for choosing Corniche Palace. We look forward to your arrival.</p>
-            <p style="margin: 5px 0;"><strong>Property Location:</strong> No. 1, Rumaila 03, Corniche, Ajman, UAE</p>
+        <div style="font-family: 'Montserrat', sans-serif; font-size: 11px; color: #555; line-height: 1.6; margin-bottom: 40px;">
+            <h4 style="color: #111; margin-bottom: 4px; font-size: 11px; text-transform: uppercase;">Terms & Conditions / Cancellation Policy</h4>
+            <p>• This booking is Non-Refundable and cannot be amended or modified.</p>
+            <p>• Failure to arrive at the hotel will be treated as a No-Show and will incur a charge of 100% of the booking value.</p>
+            <p>• Free WiFi and Parking are included as part of this reservation package.</p>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 50px; font-family: 'Montserrat', sans-serif; font-size: 11px; text-align: center;">
+            <div style="width: 180px; border-top: 1px solid #999; padding-top: 5px;">
+                <p><strong>Prepared By</strong></p>
+                <p style="color:#777; font-size: 10px;">Front Office / Reservation</p>
+            </div>
+            <div style="width: 180px; border-top: 1px solid #999; padding-top: 5px;">
+                <p><strong>Verified By</strong></p>
+                <p style="color:#777; font-size: 10px;">Accounts Department</p>
+            </div>
+            <div style="width: 180px; border-top: 1px solid #999; padding-top: 5px;">
+                <p><strong>Authorized Approved</strong></p>
+                <p style="color:#777; font-size: 10px;">Hotel Management / Stamp</p>
+            </div>
         </div>
     </div>
 
@@ -439,35 +487,51 @@
             document.getElementById("bookingForm").addEventListener("submit", function(e) {
                 e.preventDefault(); 
 
-                var bookingId = "CP-" + Math.floor(100000 + Math.random() * 900000);
+                var bookingId = "CP-2026-" + Math.floor(10000 + Math.random() * 90000);
                 document.getElementById("booking_id_input").value = bookingId;
-                document.getElementById("total_price_input").value = document.getElementById("guest-price-screen").innerText;
+                
+                var selectedRoomText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
+                var currentDailyRate = parseFloat(document.getElementById("guest-price-screen").innerText) || 130.00;
+                
+                // Calculate LPO Math match directly with Agoda Sheet Style Structure
+                var basePrice = currentDailyRate - 22.94;
+                if(basePrice <= 0) basePrice = currentDailyRate; 
 
-                // Sync data dynamically to the off-screen template container
+                document.getElementById("total_price_input").value = currentDailyRate;
+
+                // Bind elements live into the printing layer
                 document.getElementById("lpo-id").innerText = bookingId;
                 document.getElementById("lpo-name").innerText = document.getElementById("name").value;
-                document.getElementById("lpo-room").innerText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
+                document.getElementById("lpo-room").innerText = selectedRoomText;
+                document.getElementById("lpo-table-room-name").innerText = selectedRoomText;
                 document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
                 document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
-                document.getElementById("lpo-price").innerText = document.getElementById("guest-price-screen").innerText;
+                
+                document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
+                document.getElementById("lpo-grand-total").innerText = "AED " + currentDailyRate.toFixed(2);
 
                 const lpoElement = document.getElementById('lpo-document');
+                
+                // CRITICAL FIX: Temporarily apply forcing class for capturing phase safely
+                lpoElement.classList.add('lpo-print-forced');
 
                 var opt = {
-                    margin: [15, 15, 15, 15],
-                    filename: 'Corniche_Palace_Booking_' + bookingId + '.pdf',
+                    margin: [12, 12, 12, 12],
+                    filename: 'Corniche_Palace_LPO_' + bookingId + '.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true, logging: false },
+                    html2canvas: { scale: 2.5, useCORS: true, logging: false, letterRendering: true },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                // Instant execution without display flickering artifacts
+                // Execution capturing flow logic 
                 html2pdf().set(opt).from(lpoElement).save()
                 .then(() => {
-                    alert("Reservation Request Submitted! Your Booking ID: " + bookingId);
+                    lpoElement.classList.remove('lpo-print-forced'); // Clean template footprint setup
+                    alert("LPO Generation Successful! Booking ID registered: " + bookingId);
                     document.getElementById("bookingForm").submit(); 
                 }).catch(err => {
-                    console.error("PDF engine crash caught:", err);
+                    lpoElement.classList.remove('lpo-print-forced');
+                    console.error("PDF Export Failure Engine:", err);
                 });
             });
 
