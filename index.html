@@ -144,30 +144,10 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* --- THE ULTIMATE STABLE PDF BLANK-PAGE FIX --- */
-        /* We DO NOT use display:none! Instead, we keep it block but totally invisible and out of viewport */
+        /* --- STABLE SAFETY SOLUTION --- */
+        /* Completely hide template from main UI rendering container flow */
         #lpo-document {
-            display: block !important;
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 700px !important;
-            background: #ffffff !important;
-            padding: 35px !important;
-            color: #000000 !important;
-            box-sizing: border-box !important;
-            z-index: -99999 !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            overflow: hidden !important;
-            height: 1px !important; /* Forces it to have DOM footprint but unseen */
-        }
-
-        /* Temporary style triggered dynamically during html2pdf engine canvas generation */
-        .lpo-capture-active {
-            opacity: 1 !important;
-            height: auto !important;
-            overflow: visible !important;
+            display: none !important;
         }
 
         @media (max-width: 768px) {
@@ -394,7 +374,7 @@
         </div>
     </section>
 
-    <div id="lpo-document">
+    <div id="lpo-document" style="width: 680px; background: #ffffff; padding: 30px; color: #000000; box-sizing: border-box;">
         <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 25px; padding-bottom: 15px;">
             <div style="display: flex; align-items: center; gap: 15px;">
                 <img src="14880.png.jpeg" alt="Logo" style="height: 65px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
@@ -506,7 +486,7 @@
 
                 document.getElementById("total_price_input").value = currentDailyRate;
 
-                // Elements live binding injection
+                // Dynamic binding to live UI strings
                 document.getElementById("lpo-id").innerText = bookingId;
                 document.getElementById("lpo-name").innerText = document.getElementById("name").value;
                 document.getElementById("lpo-room").innerText = selectedRoomText;
@@ -517,31 +497,45 @@
                 document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
                 document.getElementById("lpo-grand-total").innerText = "AED " + currentDailyRate.toFixed(2);
 
-                const lpoElement = document.getElementById('lpo-document');
-                
-                // CRITICAL TIME-GAP SAFETY: Force visibility layer active on DOM before passing to the generator
-                lpoElement.classList.add('lpo-capture-active');
+                // --- THE POPUP WINDOW SANDBOX ENGINE FIX ---
+                // We extract the pure markup inside #lpo-document 
+                var lpoHtmlMarkup = document.getElementById('lpo-document').innerHTML;
 
-                // Give browser exactly 500ms to paint and complete graphics buffer assembly safely
+                // Open a temporary clean context window entirely separate from current layout ecosystem
+                var pdfWindow = window.open('', '_blank', 'width=800,height=900');
+                
+                // Write a standalone valid clean HTML document with the Google Fonts needed
+                pdfWindow.document.write('<html><head><title>LPO Print</title>');
+                pdfWindow.document.write('<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">');
+                pdfWindow.document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script>');
+                pdfWindow.document.write('<style>body { font-family: "Montserrat", sans-serif; margin:0; padding:0; background:#fff; }</style></head><body>');
+                pdfWindow.document.write('<div id="pdf-render-target" style="padding:20px; width:680px;">' + lpoHtmlMarkup + '</div>');
+                pdfWindow.document.write('</body></html>');
+                pdfWindow.document.close();
+
+                // Wait 1 second inside the new context for styles/fonts and image engines to settle perfectly
                 setTimeout(function() {
+                    var targetEl = pdfWindow.document.getElementById('pdf-render-target');
+                    
                     var opt = {
-                        margin: [15, 15, 15, 15],
+                        margin: [10, 10, 10, 10],
                         filename: 'Corniche_Palace_LPO_' + bookingId + '.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                        html2canvas: { scale: 2, useCORS: true, logging: false },
                         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
 
-                    html2pdf().set(opt).from(lpoElement).save()
+                    // Execute pdf engine strictly within the isolated popup dom layer
+                    pdfWindow.html2pdf().set(opt).from(targetEl).save()
                     .then(() => {
-                        lpoElement.classList.remove('lpo-capture-active'); // Re-hide footprint smoothly
+                        pdfWindow.close(); // Automatically destroy sandbox window context safely
                         alert("LPO Generated Successfully! Booking ID: " + bookingId);
-                        document.getElementById("bookingForm").submit(); 
+                        document.getElementById("bookingForm").submit(); // Finally submit to Formspree
                     }).catch(err => {
-                        lpoElement.classList.remove('lpo-capture-active');
                         console.error("PDF Export Failure Engine:", err);
+                        pdfWindow.close();
                     });
-                }, 500);
+                }, 1000);
             });
 
             // Fetch live rates from Google Sheet TSV
