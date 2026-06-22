@@ -158,22 +158,23 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* --- THE PERFECT SANDBOX PDF SOLUTION ---
-           We keep height 0 and overflow hidden. 
-           The browser creates full standard document layout dimensions, 
-           but it never shows up visually to interfere with users!
+        /* --- 🔥 FIXED OFF-SCREEN RENDERING ENGINE ---
+           We DO NOT use height:0 or overflow:hidden here anymore!
+           Instead, we push the element entirely off the user's visible viewport grid.
+           The browser fully generates the layout styles, fixing the blank PDF completely!
         */
-        .pdf-sandbox-container {
-            height: 0px !important;
-            overflow: hidden !important;
-            position: relative !important;
-            clear: both !important;
+        .pdf-render-engine-deck {
+            position: absolute !important;
+            left: -9999px !important;
+            top: 0 !important;
+            width: 790px !important; /* Perfect standard A4 base fit */
+            z-index: -5000 !important;
         }
 
         #lpo-document {
             width: 760px !important;
             background: #ffffff !important;
-            padding: 35px !important;
+            padding: 40px !important;
             color: #000000 !important;
             font-family: 'Montserrat', sans-serif !important;
             box-sizing: border-box !important;
@@ -400,7 +401,7 @@
         </div>
     </section>
 
-    <div class="pdf-sandbox-container">
+    <div class="pdf-render-engine-deck">
         <div id="lpo-document">
             <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 25px; padding-bottom: 15px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
