@@ -122,8 +122,6 @@
 
         .form-group { flex: 1; display: flex; flex-direction: column; gap: 5px; }
 
-        .form-group label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--dark-gold); font-weight: 600; }
-
         .form-group input, .form-group textarea, .form-group select { padding: 13px; background-color: var(--pure-white); border: 1px solid #dcd1c4; color: #222222; font-family: 'Montserrat', sans-serif; border-radius: 4px; outline: none; font-size: 0.95rem; }
 
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--dark-gold); box-shadow: 0 0 5px rgba(170, 139, 92, 0.2); }
@@ -146,7 +144,7 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* Print Document Layout Styles */
+        /* Printable Area Frame for html2pdf */
         #lpo-document { display: none; padding: 40px; font-family: Arial, sans-serif; color: #000; }
         .lpo-header { text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; padding-bottom: 10px; }
 
@@ -219,7 +217,7 @@
                 <img src="room2.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
                     <h3>Standard Double Room</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-double">...</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-double">350</span> / Night</div>
                     <p>Serene comfort featuring premium bedding, handcrafted marble finishes, and standard business amenities.</p>
                 </div>
             </div>
@@ -227,7 +225,7 @@
                 <img src="room1.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>One Bedroom Suite</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-suite1">...</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-suite1">750</span> / Night</div>
                     <p>Spacious luxury layouts optimizing separate lounge layouts, individual A/C control, and high-tier facilities.</p>
                 </div>
             </div>
@@ -235,7 +233,7 @@
                 <img src="room4.jpg.jpeg" alt="Two Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>Two Bedroom Suite</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-suite2">...</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-suite2">1100</span> / Night</div>
                     <p>The ultimate family sanctuary layout, combining vast attached restrooms and dedicated hosting features.</p>
                 </div>
             </div>
@@ -341,7 +339,7 @@
 
                 <div class="live-price-calculator">
                     <p>Current Room Category Daily Rate:</p>
-                    <div>AED <span id="guest-price-screen">...</span> / Night</div>
+                    <div>AED <span id="guest-price-screen">350</span> / Night</div>
                 </div>
 
                 <div class="form-group">
@@ -391,3 +389,118 @@
         
         <div style="margin-bottom: 20px;">
             <p style="margin: 5px 0;"><strong>Guest Name:</strong> <span id="lpo-name"></span></p>
+            <p style="margin: 5px 0;"><strong>Room Type:</strong> <span id="lpo-room"></span></p>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr style="background: #fbf9f6;">
+                <th style="border: 1px solid #000; padding: 8px; text-align: center;">Check-In</th>
+                <th style="border: 1px solid #000; padding: 8px; text-align: center;">Check-Out</th>
+                <th style="border: 1px solid #000; padding: 8px; text-align: center;">Rate per Night (AED)</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #000; padding: 8px; text-align: center;" id="lpo-in"></td>
+                <td style="border: 1px solid #000; padding: 8px; text-align: center;" id="lpo-out"></td>
+                <td style="border: 1px solid #000; padding: 8px; text-align: center;" id="lpo-price"></td>
+            </tr>
+        </table>
+
+        <div style="border-top: 1px solid #000; padding-top: 15px; font-size: 0.9rem; line-height: 1.5;">
+            <p style="margin: 5px 0;">Thank you for choosing Corniche Palace. We look forward to hosting you.</p>
+            <p style="margin: 5px 0;"><strong>Property Location:</strong> No. 1, Rumaila 03, Corniche, Ajman, UAE</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        var PUBLISHED_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSljbr8YCxpFqcXheuzGqg1Me1nY0uz1A5rDYhEWHm37IeL574kh5jB1KbVP4ue4dMWGLkfWYD_FjpX/pub?output=tsv"; 
+        var currentHotelRates = { "standard-double": 350, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var video = document.getElementById("heroVideo");
+            if(video) video.currentTime = 4;
+            
+            renderRatesToUI();
+
+            document.getElementById("bookingForm").addEventListener("submit", function(e) {
+                e.preventDefault(); 
+
+                var bookingId = "CP-" + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById("booking_id_input").value = bookingId;
+                document.getElementById("total_price_input").value = document.getElementById("guest-price-screen").innerText;
+
+                document.getElementById("lpo-id").innerText = bookingId;
+                document.getElementById("lpo-name").innerText = document.getElementById("name").value;
+                document.getElementById("lpo-room").innerText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
+                document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
+                document.getElementById("checkout").value;
+                document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
+                document.getElementById("lpo-price").innerText = document.getElementById("guest-price-screen").innerText;
+
+                const lpoElement = document.getElementById('lpo-document');
+                
+                // Fix for Empty PDF
+                lpoElement.style.display = 'block';
+                lpoElement.style.position = 'absolute';
+                lpoElement.style.left = '-9999px';
+
+                var opt = {
+                    margin: 10,
+                    filename: 'Corniche_Palace_Booking_' + bookingId + '.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, logging: false },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                setTimeout(() => {
+                    html2pdf().set(opt).from(lpoElement).save()
+                    .then(() => {
+                        lpoElement.style.display = 'none';
+                        lpoElement.style.position = 'static';
+                        alert("Reservation Request Submitted! Your Booking ID: " + bookingId);
+                        e.target.submit(); 
+                    });
+                }, 500);
+            });
+
+            // Fetch live rates from Google Sheet TSV
+            fetch(PUBLISHED_TSV_URL)
+                .then(response => response.text())
+                .then(data => {
+                    var lines = data.split("\n");
+                    for (var i = 1; i < lines.length; i++) {
+                        var parts = lines[i].split("\t");
+                        if (parts.length >= 2) {
+                            var roomKey = parts[0].trim().toLowerCase(); // Normalize keys to lowercase
+                            var roomPrice = parseInt(parts[1].trim());
+                            if (roomKey && !isNaN(roomPrice)) {
+                                currentHotelRates[roomKey] = roomPrice;
+                            }
+                        }
+                    }
+                    renderRatesToUI(); 
+                })
+                .catch(error => console.error("Error loading rates:", error));
+        });
+
+        function renderRatesToUI() {
+            if(document.getElementById("card-rate-double")) {
+                document.getElementById("card-rate-double").innerText = currentHotelRates["standard-double"];
+                document.getElementById("card-rate-suite1").innerText = currentHotelRates["one-bedroom-suite"];
+                document.getElementById("card-rate-suite2").innerText = currentHotelRates["two-bedroom-suite"];
+                updateGuestPriceDisplay();
+            }
+        }
+
+        function updateGuestPriceDisplay() {
+            var roomSelect = document.getElementById("room-type");
+            var priceDisplay = document.getElementById("guest-price-screen");
+            if(roomSelect && priceDisplay) {
+                var selectedKey = roomSelect.value.toLowerCase();
+                priceDisplay.innerText = currentHotelRates[selectedKey] || "...";
+            }
+        }
+    </script></body></html>
