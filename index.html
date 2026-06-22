@@ -9,6 +9,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9Y_mi4QS2NC10Zswc6G4EJIhKHu7CW5o",
+            authDomain: "corniche-palace-pms.firebaseapp.com",
+            projectId: "corniche-palace-pms",
+            storageBucket: "corniche-palace-pms.firebasestorage.app",
+            messagingSenderId: "197825109573",
+            appId: "1:197825109573:web:dd727d4ebebd1bd2a80d2c",
+            measurementId: "G-GPLJY50REB"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+    
     <style>
         :root {
             --primary-gold: #c5a880;
@@ -169,37 +187,13 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* PDF Hidden Workspace Container - Fix for Cutoff & Margins */
-        .pdf-render-engine-deck {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-            width: 0; height: 0;
-            overflow: hidden;
-        }
+        .pdf-render-engine-deck { position: absolute; left: -9999px; top: -9999px; width: 0; height: 0; overflow: hidden; }
 
-        /* Fully structured and clean A4 layout block without cutoff borders */
-        #lpo-document {
-            width: 680px !important;
-            min-height: 842px;
-            background: #ffffff !important;
-            padding: 30px !important;
-            color: #000000 !important;
-            font-family: 'Montserrat', sans-serif !important;
-            box-sizing: border-box !important;
-        }
+        #lpo-document { width: 680px !important; min-height: 842px; background: #ffffff !important; padding: 30px !important; color: #000000 !important; font-family: 'Montserrat', sans-serif !important; box-sizing: border-box !important; }
 
-        #lpo-document table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-            margin-bottom: 25px !important;
-            font-size: 11px !important;
-        }
+        #lpo-document table { width: 100% !important; border-collapse: collapse !important; margin-bottom: 25px !important; font-size: 11px !important; }
 
-        #lpo-document th, #lpo-document td {
-            padding: 10px !important;
-            border-bottom: 1px solid #eee !important;
-        }
+        #lpo-document th, #lpo-document td { padding: 10px !important; border-bottom: 1px solid #eee !important; }
 
         @media (max-width: 768px) {
             nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
@@ -509,11 +503,11 @@
                         </td>
                         <td style="text-align: center;" id="lpo-in">June 19, 2026</td>
                         <td style="text-align: center;" id="lpo-out">June 20, 2026</td>
-                        <td style="text-align: right; font-weight: 500;" id="lpo-base-price">130.00</td>
+                        <td style="text-align: right; font-weight: 500;" id="lpo-base-price">132.99</td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align: right; color: #555;">Taxes & Fees (Service Charge & Tourism Fees):</td>
-                        <td style="text-align: right; color: #555;" id="lpo-tax-price">22.94</td>
+                        <td colspan="3" style="text-align: right; color: #555;">Taxes & Fees (15%):</td>
+                        <td style="text-align: right; color: #555;" id="lpo-tax-price">19.95</td>
                     </tr>
                     <tr style="background: #fcfbfa; font-weight: 600; font-size: 12px;">
                         <td colspan="3" style="text-align: right; color: #111; border-bottom: none;">Grand Total:</td>
@@ -569,9 +563,11 @@
                 
                 var clientName = document.getElementById("name").value;
                 var selectedRoomText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
+                
                 var currentGrandTotal = parseFloat(document.getElementById("guest-price-screen").innerText) || 152.94;
-                var basePrice = currentGrandTotal - 22.94;
-                if(basePrice <= 0) basePrice = currentGrandTotal * 0.85; 
+                
+                var basePrice = currentGrandTotal / 1.15;
+                var taxPrice = currentGrandTotal - basePrice;
 
                 document.getElementById("total_price_input").value = currentGrandTotal;
 
@@ -582,7 +578,9 @@
                 document.getElementById("lpo-table-room-name").innerText = selectedRoomText;
                 document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
                 document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
+                
                 document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
+                document.getElementById("lpo-tax-price").innerText = taxPrice.toFixed(2);
                 document.getElementById("lpo-grand-total").innerText = "AED " + currentGrandTotal.toFixed(2);
 
                 document.getElementById("dash-user-name").innerText = clientName;
