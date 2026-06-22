@@ -420,9 +420,14 @@
                 document.getElementById("lpo-price").innerText = document.getElementById("guest-price-screen").innerText;
 
                 // PDF ජනනය කිරීම
+                const lpoElement = document.getElementById('lpo-document');
+                lpoElement.style.display = 'block'; 
+
                 setTimeout(() => {
-                    const element = document.getElementById('lpo-document');
-                    html2pdf().from(element).save('Corniche_Palace_Booking_' + bookingId + '.pdf');
+                    html2pdf().from(lpoElement).save('Corniche_Palace_Booking_' + bookingId + '.pdf')
+                    .then(() => {
+                        lpoElement.style.display = 'none';
+                    });
                 }, 500);
 
                 alert("Reservation Request Submitted! Your Booking ID: " + bookingId);
