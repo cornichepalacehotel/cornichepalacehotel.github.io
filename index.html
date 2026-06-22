@@ -144,22 +144,30 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* --- THE ULTIMATE BLANK-PDF MEDIA CONFIRMATION FIX --- */
-        /* By default, hide the LPO element gracefully from the main live website view */
+        /* --- THE ULTIMATE STABLE PDF BLANK-PAGE FIX --- */
+        /* We DO NOT use display:none! Instead, we keep it block but totally invisible and out of viewport */
         #lpo-document {
-            display: none !important;
-        }
-
-        /* When html2pdf invokes the render engine, it clones elements or triggers print view styles */
-        /* This ensures that when targetted, it gets solid layout blocks without browser optimization failures */
-        .lpo-print-forced {
             display: block !important;
-            width: 680px !important;
-            margin: 0 auto !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 700px !important;
             background: #ffffff !important;
-            padding: 30px !important;
+            padding: 35px !important;
             color: #000000 !important;
             box-sizing: border-box !important;
+            z-index: -99999 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            overflow: hidden !important;
+            height: 1px !important; /* Forces it to have DOM footprint but unseen */
+        }
+
+        /* Temporary style triggered dynamically during html2pdf engine canvas generation */
+        .lpo-capture-active {
+            opacity: 1 !important;
+            height: auto !important;
+            overflow: visible !important;
         }
 
         @media (max-width: 768px) {
@@ -392,17 +400,17 @@
                 <img src="14880.png.jpeg" alt="Logo" style="height: 65px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
                 <div>
                     <h1 style="margin: 0; font-size: 22px; font-family: 'Playfair Display', serif; color: #111;">CORNICHE PALACE</h1>
-                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #555; font-family: 'Montserrat', sans-serif;">Ajman, United Arab Emirates</p>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #555;">Ajman, United Arab Emirates</p>
                 </div>
             </div>
-            <div style="text-align: right; font-family: 'Montserrat', sans-serif;">
+            <div style="text-align: right;">
                 <h2 style="margin: 0; font-size: 18px; color: #aa8b5c; font-family: 'Playfair Display', serif;">LOCAL PURCHASE ORDER</h2>
                 <p style="margin: 4px 0 0 0; font-size: 12px;"><strong>LPO NO:</strong> <span id="lpo-id"></span></p>
                 <p style="margin: 2px 0 0 0; font-size: 11px; color:#666;">Date: June 22, 2026</p>
             </div>
         </div>
         
-        <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-family: 'Montserrat', sans-serif; font-size: 12px; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 12px; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 15px;">
             <div>
                 <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase;">Vendor / Agency Details</h4>
                 <p><strong>Name:</strong> Agoda Company Pte, Ltd.</p>
@@ -417,7 +425,7 @@
             </div>
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-family: 'Montserrat', sans-serif; font-size: 12px;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 12px;">
             <thead>
                 <tr style="background: #fbf9f6; border-bottom: 1px solid #000;">
                     <th style="padding: 10px; text-align: left; font-weight: 600;">Description / Room Type</th>
@@ -447,23 +455,23 @@
             </tbody>
         </table>
 
-        <div style="font-family: 'Montserrat', sans-serif; font-size: 11px; color: #555; line-height: 1.6; margin-bottom: 40px;">
+        <div style="font-size: 11px; color: #555; line-height: 1.6; margin-bottom: 40px;">
             <h4 style="color: #111; margin-bottom: 4px; font-size: 11px; text-transform: uppercase;">Terms & Conditions / Cancellation Policy</h4>
             <p>• This booking is Non-Refundable and cannot be amended or modified.</p>
             <p>• Failure to arrive at the hotel will be treated as a No-Show and will incur a charge of 100% of the booking value.</p>
             <p>• Free WiFi and Parking are included as part of this reservation package.</p>
         </div>
 
-        <div style="display: flex; justify-content: space-between; margin-top: 50px; font-family: 'Montserrat', sans-serif; font-size: 11px; text-align: center;">
-            <div style="width: 180px; border-top: 1px solid #999; padding-top: 5px;">
+        <div style="display: flex; justify-content: space-between; margin-top: 50px; font-size: 11px; text-align: center;">
+            <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
                 <p><strong>Prepared By</strong></p>
                 <p style="color:#777; font-size: 10px;">Front Office / Reservation</p>
             </div>
-            <div style="width: 180px; border-top: 1px solid #999; padding-top: 5px;">
+            <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
                 <p><strong>Verified By</strong></p>
                 <p style="color:#777; font-size: 10px;">Accounts Department</p>
             </div>
-            <div style="width: 180px; border-top: 1px solid #999; padding-top: 5px;">
+            <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
                 <p><strong>Authorized Approved</strong></p>
                 <p style="color:#777; font-size: 10px;">Hotel Management / Stamp</p>
             </div>
@@ -491,15 +499,14 @@
                 document.getElementById("booking_id_input").value = bookingId;
                 
                 var selectedRoomText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
-                var currentDailyRate = parseFloat(document.getElementById("guest-price-screen").innerText) || 130.00;
+                var currentDailyRate = parseFloat(document.getElementById("guest-price-screen").innerText) || 152.94;
                 
-                // Calculate LPO Math match directly with Agoda Sheet Style Structure
                 var basePrice = currentDailyRate - 22.94;
                 if(basePrice <= 0) basePrice = currentDailyRate; 
 
                 document.getElementById("total_price_input").value = currentDailyRate;
 
-                // Bind elements live into the printing layer
+                // Elements live binding injection
                 document.getElementById("lpo-id").innerText = bookingId;
                 document.getElementById("lpo-name").innerText = document.getElementById("name").value;
                 document.getElementById("lpo-room").innerText = selectedRoomText;
@@ -512,27 +519,29 @@
 
                 const lpoElement = document.getElementById('lpo-document');
                 
-                // CRITICAL FIX: Temporarily apply forcing class for capturing phase safely
-                lpoElement.classList.add('lpo-print-forced');
+                // CRITICAL TIME-GAP SAFETY: Force visibility layer active on DOM before passing to the generator
+                lpoElement.classList.add('lpo-capture-active');
 
-                var opt = {
-                    margin: [12, 12, 12, 12],
-                    filename: 'Corniche_Palace_LPO_' + bookingId + '.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2.5, useCORS: true, logging: false, letterRendering: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
+                // Give browser exactly 500ms to paint and complete graphics buffer assembly safely
+                setTimeout(function() {
+                    var opt = {
+                        margin: [15, 15, 15, 15],
+                        filename: 'Corniche_Palace_LPO_' + bookingId + '.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    };
 
-                // Execution capturing flow logic 
-                html2pdf().set(opt).from(lpoElement).save()
-                .then(() => {
-                    lpoElement.classList.remove('lpo-print-forced'); // Clean template footprint setup
-                    alert("LPO Generation Successful! Booking ID registered: " + bookingId);
-                    document.getElementById("bookingForm").submit(); 
-                }).catch(err => {
-                    lpoElement.classList.remove('lpo-print-forced');
-                    console.error("PDF Export Failure Engine:", err);
-                });
+                    html2pdf().set(opt).from(lpoElement).save()
+                    .then(() => {
+                        lpoElement.classList.remove('lpo-capture-active'); // Re-hide footprint smoothly
+                        alert("LPO Generated Successfully! Booking ID: " + bookingId);
+                        document.getElementById("bookingForm").submit(); 
+                    }).catch(err => {
+                        lpoElement.classList.remove('lpo-capture-active');
+                        console.error("PDF Export Failure Engine:", err);
+                    });
+                }, 500);
             });
 
             // Fetch live rates from Google Sheet TSV
