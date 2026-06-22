@@ -144,9 +144,16 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* Printable Area Frame for html2pdf */
-        #lpo-document { display: none; padding: 40px; font-family: Arial, sans-serif; color: #000; }
-        .lpo-header { text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; padding-bottom: 10px; }
+        /* STABLE OFF-SCREEN PRINT CONTAINER FIX: This keeps the DOM fully loaded without rendering artifacts visually */
+        .lpo-print-container {
+            position: absolute !important;
+            left: -9999px !important;
+            top: 0 !important;
+            width: 750px !important; /* Perfect A4 width boundaries */
+            background: #ffffff !important;
+            padding: 35px !important;
+            display: block !important; /* Fully active in DOM */
+        }
 
         @media (max-width: 768px) {
             nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
@@ -372,41 +379,45 @@
         </div>
     </section>
 
-    <div id="lpo-document" style="width: 800px; padding: 40px; font-family: Arial, sans-serif; color: #000; border: 1px solid #ccc; display: none;">
+    <div id="lpo-document" class="lpo-print-container">
         <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 15px;">
             <div style="display: flex; align-items: center; gap: 15px;">
                 <img src="14880.png.jpeg" alt="Logo" style="height: 70px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
                 <div>
-                    <h1 style="margin: 0; font-size: 24px;">CORNICHE PALACE</h1>
+                    <h1 style="margin: 0; font-size: 24px; font-family: 'Playfair Display', serif;">CORNICHE PALACE</h1>
                     <p style="margin: 2px 0 0 0; font-size: 14px; color: #555;">Ajman, United Arab Emirates</p>
                 </div>
             </div>
             <div style="text-align: right;">
-                <h2 style="margin: 0; font-size: 20px; color: #aa8b5c;">Booking Confirmation</h2>
+                <h2 style="margin: 0; font-size: 20px; color: #aa8b5c; font-family: 'Playfair Display', serif;">Booking Confirmation</h2>
                 <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>ID:</strong> <span id="lpo-id"></span></p>
             </div>
         </div>
         
-        <div style="margin-bottom: 20px;">
+        <div style="margin-bottom: 20px; font-size: 15px; line-height: 1.6;">
             <p style="margin: 5px 0;"><strong>Guest Name:</strong> <span id="lpo-name"></span></p>
             <p style="margin: 5px 0;"><strong>Room Type:</strong> <span id="lpo-room"></span></p>
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-            <tr style="background: #fbf9f6;">
-                <th style="border: 1px solid #000; padding: 8px; text-align: center;">Check-In</th>
-                <th style="border: 1px solid #000; padding: 8px; text-align: center;">Check-Out</th>
-                <th style="border: 1px solid #000; padding: 8px; text-align: center;">Rate per Night (AED)</th>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #000; padding: 8px; text-align: center;" id="lpo-in"></td>
-                <td style="border: 1px solid #000; padding: 8px; text-align: center;" id="lpo-out"></td>
-                <td style="border: 1px solid #000; padding: 8px; text-align: center;" id="lpo-price"></td>
-            </tr>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+            <thead>
+                <tr style="background: #fbf9f6;">
+                    <th style="border: 1px solid #ddd; padding: 10px; text-align: center;">Check-In</th>
+                    <th style="border: 1px solid #ddd; padding: 10px; text-align: center;">Check-Out</th>
+                    <th style="border: 1px solid #ddd; padding: 10px; text-align: center;">Rate per Night (AED)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;" id="lpo-in"></td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;" id="lpo-out"></td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #aa8b5c;" id="lpo-price"></td>
+                </tr>
+            </tbody>
         </table>
 
-        <div style="border-top: 1px solid #000; padding-top: 15px; font-size: 0.9rem; line-height: 1.5;">
-            <p style="margin: 5px 0;">Thank you for choosing Corniche Palace. We look forward to hosting you.</p>
+        <div style="border-top: 1px solid #eee; padding-top: 15px; font-size: 13px; color: #666; line-height: 1.6;">
+            <p style="margin: 5px 0; color: #333;">Thank you for choosing Corniche Palace. We look forward to your arrival.</p>
             <p style="margin: 5px 0;"><strong>Property Location:</strong> No. 1, Rumaila 03, Corniche, Ajman, UAE</p>
         </div>
     </div>
@@ -432,38 +443,32 @@
                 document.getElementById("booking_id_input").value = bookingId;
                 document.getElementById("total_price_input").value = document.getElementById("guest-price-screen").innerText;
 
+                // Sync data dynamically to the off-screen template container
                 document.getElementById("lpo-id").innerText = bookingId;
                 document.getElementById("lpo-name").innerText = document.getElementById("name").value;
                 document.getElementById("lpo-room").innerText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
                 document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
-                document.getElementById("checkout").value;
                 document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
                 document.getElementById("lpo-price").innerText = document.getElementById("guest-price-screen").innerText;
 
                 const lpoElement = document.getElementById('lpo-document');
-                
-                // Fix for Empty PDF
-                lpoElement.style.display = 'block';
-                lpoElement.style.position = 'absolute';
-                lpoElement.style.left = '-9999px';
 
                 var opt = {
-                    margin: 10,
+                    margin: [15, 15, 15, 15],
                     filename: 'Corniche_Palace_Booking_' + bookingId + '.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2, useCORS: true, logging: false },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                setTimeout(() => {
-                    html2pdf().set(opt).from(lpoElement).save()
-                    .then(() => {
-                        lpoElement.style.display = 'none';
-                        lpoElement.style.position = 'static';
-                        alert("Reservation Request Submitted! Your Booking ID: " + bookingId);
-                        e.target.submit(); 
-                    });
-                }, 500);
+                // Instant execution without display flickering artifacts
+                html2pdf().set(opt).from(lpoElement).save()
+                .then(() => {
+                    alert("Reservation Request Submitted! Your Booking ID: " + bookingId);
+                    document.getElementById("bookingForm").submit(); 
+                }).catch(err => {
+                    console.error("PDF engine crash caught:", err);
+                });
             });
 
             // Fetch live rates from Google Sheet TSV
@@ -474,7 +479,7 @@
                     for (var i = 1; i < lines.length; i++) {
                         var parts = lines[i].split("\t");
                         if (parts.length >= 2) {
-                            var roomKey = parts[0].trim().toLowerCase(); // Normalize keys to lowercase
+                            var roomKey = parts[0].trim().toLowerCase(); 
                             var roomPrice = parseInt(parts[1].trim());
                             if (roomKey && !isNaN(roomPrice)) {
                                 currentHotelRates[roomKey] = roomPrice;
