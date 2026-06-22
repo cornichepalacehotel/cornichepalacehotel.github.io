@@ -158,13 +158,15 @@
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
 
-        /* --- THE ANTI-BLANK ENGINE DECK --- */
+        /* --- ANTI-BLANK ENGINE DECK (FIXED!) --- */
+        /* Absolute positions or left -9999px breaks html2pdf engine. We use standard flow with opacity/visibility control instead. */
         .pdf-render-engine-deck {
-            position: absolute !important;
-            left: -9999px !important;
-            top: 0 !important;
-            width: 790px !important; 
-            z-index: -5000 !important;
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
 
         #lpo-document {
@@ -245,7 +247,7 @@
                 <img src="room2.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
                     <h3>Standard Double Room</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-double">350</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-double">152.94</span> / Night</div>
                     <p>Serene comfort featuring premium bedding, handcrafted marble finishes, and standard business amenities.</p>
                 </div>
             </div>
@@ -367,7 +369,7 @@
 
                 <div class="live-price-calculator">
                     <p>Current Room Category Daily Rate:</p>
-                    <div>AED <span id="guest-price-screen">350</span> / Night</div>
+                    <div>AED <span id="guest-price-screen">152.94</span> / Night</div>
                 </div>
 
                 <div class="form-group">
@@ -397,21 +399,26 @@
         </div>
     </section>
 
+    <footer>
+        <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
+    </footer>
+
     <div class="pdf-render-engine-deck">
         <div id="lpo-document">
             <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 25px; padding-bottom: 15px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <img src="14880.png.jpeg" alt="Logo" style="height: 65px; width: auto; border-radius: 50%; border: 1px solid #c5a880;">
                     <div>
-                        <h1 style="margin: 0; font-size: 22px; font-family: 'Playfair Display', serif; color: #111; letter-spacing: 0.5px;">CORNICHE PALACE</h1>
-                        <p style="margin: 2px 0 0 0; font-size: 11px; color: #555;">Ajman, United Arab Emirates</p>
+                        <h1 style="margin: 0; font-size: 22px; font-family: 'Playfair Display', serif; color: #111; letter-spacing: 0.5px; text-transform: uppercase;">CORNICHE PALACE</h1>
+                        <p style="margin: 2px 0 0 0; font-size: 11px; color: #555;">HOTEL By nutmeg</p>
+                        <p style="margin: 1px 0 0 0; font-size: 10px; color: #777;">Ajman, United Arab Emirates</p>
                         <p style="margin: 1px 0 0 0; font-size: 10px; color: #777;">Email: reservations@cornichepalace.com</p>
                     </div>
                 </div>
                 <div style="text-align: right;">
                     <h2 style="margin: 0; font-size: 18px; color: #aa8b5c; font-family: 'Playfair Display', serif; letter-spacing: 0.5px;">LOCAL PURCHASE ORDER</h2>
-                    <p style="margin: 4px 0 0 0; font-size: 11px;"><strong>LPO NO:</strong> <span id="lpo-id"></span></p>
-                    <p style="margin: 2px 0 0 0; font-size: 11px;"><strong>Booking Ref:</strong> <span id="lpo-ref"></span></p>
+                    <p style="margin: 4px 0 0 0; font-size: 11px;"><strong>LPO NO:</strong> <span id="lpo-id">CP-2026-00124</span></p>
+                    <p style="margin: 2px 0 0 0; font-size: 11px;"><strong>Booking Ref:</strong> <span id="lpo-ref">AG-2024260688</span></p>
                     <p style="margin: 2px 0 0 0; font-size: 10px; color:#666;">Date: June 22, 2026</p>
                 </div>
             </div>
@@ -425,8 +432,8 @@
                 </div>
                 <div style="text-align: right;">
                     <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase; font-size: 11px;">Guest & Stay Details</h4>
-                    <p><strong>Guest Name:</strong> <span id="lpo-name"></span></p>
-                    <p><strong>Room Style:</strong> <span id="lpo-room"></span></p>
+                    <p><strong>Guest Name:</strong> <span id="lpo-name">Shehan Lakthilinage</span></p>
+                    <p><strong>Room Style:</strong> <span id="lpo-room">Standard Double Room</span></p>
                     <p>Country: United Arab Emirates</p>
                 </div>
             </div>
@@ -446,17 +453,17 @@
                             <span id="lpo-table-room-name" style="font-weight: 600;">Standard Double Room</span><br>
                             <span style="font-size: 10px; color: #666;">Rate Plan: Beds Network - Room Only</span>
                         </td>
-                        <td style="padding: 12px 10px; text-align: center;" id="lpo-in">---</td>
-                        <td style="padding: 12px 10px; text-align: center;" id="lpo-out">---</td>
-                        <td style="padding: 12px 10px; text-align: right; font-weight: 500;" id="lpo-base-price">0.00</td>
+                        <td style="padding: 12px 10px; text-align: center;" id="lpo-in">June 19, 2026</td>
+                        <td style="padding: 12px 10px; text-align: center;" id="lpo-out">June 20, 2026</td>
+                        <td style="padding: 12px 10px; text-align: right; font-weight: 500;" id="lpo-base-price">130.00</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #eee;">
                         <td colspan="3" style="padding: 8px 10px; text-align: right; color: #555;">Taxes & Fees (Service Charge & Tourism Fees):</td>
-                        <td style="padding: 8px 10px; text-align: right; color: #555;">22.94</td>
+                        <td style="padding: 8px 10px; text-align: right; color: #555;" id="lpo-tax-price">22.94</td>
                     </tr>
                     <tr style="background: #fcfbfa; font-weight: 600; font-size: 12px;">
                         <td colspan="3" style="padding: 12px 10px; text-align: right; color: #111;">Grand Total:</td>
-                        <td style="padding: 12px 10px; text-align: right; color: #aa8b5c; font-size: 13px;" id="lpo-grand-total">AED 0.00</td>
+                        <td style="padding: 12px 10px; text-align: right; color: #aa8b5c; font-size: 13px;" id="lpo-grand-total">AED 152.94</td>
                     </tr>
                 </tbody>
             </table>
@@ -471,7 +478,7 @@
             <div style="display: flex; justify-content: space-between; margin-top: 50px; font-size: 10px; text-align: center;">
                 <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
                     <p><strong>Prepared By</strong></p>
-                    <p style="color:#777; font-size: 9px;">Front Office / Reservation</p>
+                    <p style="color:#777; font-size: 9px;">Front Office / Reservation Clerk</p>
                 </div>
                 <div style="width: 170px; border-top: 1px solid #999; padding-top: 5px;">
                     <p><strong>Verified By</strong></p>
@@ -497,15 +504,11 @@
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
-    </footer>
-
     <script>
         var FORMSPREE_API = "https://formspree.io/f/mwvjbqdj";
         var PUBLISHED_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSljbr8YCxpFqcXheuzGqg1Me1nY0uz1A5rDYhEWHm37IeL574kh5jB1KbVP4ue4dMWGLkfWYD_FjpX/pub?output=tsv"; 
-        var currentHotelRates = { "standard-double": 350, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
-        var generatedBookingID = "";
+        var currentHotelRates = { "standard-double": 152.94, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
+        var generatedBookingID = "CP-2026-00124";
 
         document.addEventListener("DOMContentLoaded", function() {
             var video = document.getElementById("heroVideo");
@@ -526,13 +529,13 @@
                 document.getElementById("booking_id_input").value = generatedBookingID;
                 
                 var selectedRoomText = document.getElementById("room-type").options[document.getElementById("room-type").selectedIndex].text;
-                var currentDailyRate = parseFloat(document.getElementById("guest-price-screen").innerText) || 350;
-                var basePrice = currentDailyRate - 22.94;
-                if(basePrice <= 0) basePrice = currentDailyRate; 
+                var currentGrandTotal = parseFloat(document.getElementById("guest-price-screen").innerText) || 152.94;
+                var basePrice = currentGrandTotal - 22.94;
+                if(basePrice <= 0) basePrice = currentGrandTotal * 0.85; 
 
-                document.getElementById("total_price_input").value = currentDailyRate;
+                document.getElementById("total_price_input").value = currentGrandTotal;
 
-                // UI Node Updates
+                // UI Node Updates dynamically
                 document.getElementById("lpo-id").innerText = generatedBookingID;
                 document.getElementById("lpo-ref").innerText = generatedRef;
                 document.getElementById("lpo-name").innerText = document.getElementById("name").value;
@@ -541,7 +544,7 @@
                 document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
                 document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
                 document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
-                document.getElementById("lpo-grand-total").innerText = "AED " + currentDailyRate.toFixed(2);
+                document.getElementById("lpo-grand-total").innerText = "AED " + currentGrandTotal.toFixed(2);
 
                 var formData = new FormData(this);
 
@@ -577,7 +580,7 @@
                         var parts = lines[i].split("\t");
                         if (parts.length >= 2) {
                             var roomKey = parts[0].trim().toLowerCase(); 
-                            var roomPrice = parseInt(parts[1].trim());
+                            var roomPrice = parseFloat(parts[1].trim());
                             if (roomKey && !isNaN(roomPrice)) {
                                 currentHotelRates[roomKey] = roomPrice;
                             }
@@ -593,23 +596,34 @@
             btn.innerText = "Generating PDF...";
             btn.disabled = true;
 
-            // CRITICAL FIX: We give a 500ms delay to make sure images are fully stable in the DOM layout
+            // Give a clean 400ms delay to ensure DOM structures and graphics pipeline are fully active
             setTimeout(function() {
                 var lpoTarget = document.getElementById('lpo-document');
                 
                 var opt = {
-                    margin: [15, 15, 15, 15],
+                    margin: [10, 10, 10, 10],
                     filename: 'Corniche_Palace_LPO_' + generatedBookingID + '.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                    html2canvas: { 
+                        scale: 2, 
+                        useCORS: true, 
+                        logging: false, 
+                        letterRendering: true,
+                        scrollY: 0,
+                        scrollX: 0
+                    },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
                 html2pdf().set(opt).from(lpoTarget).save().then(function() {
                     btn.innerText = "Download LPO Receipt (PDF)";
                     btn.disabled = false;
+                }).catch(function(err) {
+                    console.error("PDF Engine Error:", err);
+                    btn.innerText = "Download LPO Receipt (PDF)";
+                    btn.disabled = false;
                 });
-            }, 500);
+            }, 400);
         }
 
         function closeSuccessModal() {
