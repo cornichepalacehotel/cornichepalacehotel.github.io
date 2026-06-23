@@ -264,7 +264,7 @@
                 <img src="room2.jpg.jpeg" alt="Standard Double Room" class="card-img">
                 <div class="card-content">
                     <h3>Standard Double Room</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-double">...</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-double">152.94</span> / Night</div>
                     <p>Serene comfort featuring premium bedding, handcrafted marble finishes, and standard business amenities.</p>
                 </div>
             </div>
@@ -272,7 +272,7 @@
                 <img src="room1.jpg.jpeg" alt="One Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>One Bedroom Suite</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-suite1">...</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-suite1">750</span> / Night</div>
                     <p>Spacious luxury layouts optimizing separate lounge layouts, individual A/C control, and high-tier facilities.</p>
                 </div>
             </div>
@@ -280,7 +280,7 @@
                 <img src="room4.jpg.jpeg" alt="Two Bedroom Suite" class="card-img">
                 <div class="card-content">
                     <h3>Two Bedroom Suite</h3>
-                    <div class="room-price-tag">From AED <span id="card-rate-suite2">...</span> / Night</div>
+                    <div class="room-price-tag">From AED <span id="card-rate-suite2">1100</span> / Night</div>
                     <p>The ultimate family sanctuary layout, combining vast attached restrooms and dedicated hosting features.</p>
                 </div>
             </div>
@@ -439,10 +439,20 @@
                     <p style="margin-top: 4px; color: #777;">Stay Horizon: <span id="dash-in-date">---</span> to <span id="dash-out-date">---</span></p>
                 </div>
                 <div class="history-actions">
-                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--dark-gold);" id="dash-total-val">...</div>
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--dark-gold);" id="dash-total-val">AED 152.94</div>
                     <button type="button" class="btn-history-download" onclick="triggerLPODownload()">Download Invoice PDF</button>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="admin-dashboard" style="display:none; padding: 40px; background: #fff3e0; text-align: center; border: 2px dashed var(--dark-gold); margin: 20px;">
+        <h2 style="margin-bottom: 20px;">Admin Price Control</h2>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <input type="number" id="new-double" placeholder="Double Room Price">
+            <input type="number" id="new-suite1" placeholder="1-Bed Suite Price">
+            <input type="number" id="new-suite2" placeholder="2-Bed Suite Price">
+            <button onclick="updatePrices()" style="padding: 10px 20px; cursor: pointer; background: var(--dark-gold); color: white; border: none;">Update Prices</button>
         </div>
     </section>
 
@@ -539,11 +549,14 @@
 
     <script>
         var FORMSPREE_API = "https://formspree.io/f/mwvjbqdj";
-        var PUBLISHED_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSljbr8YCxpFqcXheuzGqg1Me1nY0uz1A5rDYhEWHm37IeL574kh5jB1KbVP4ue4dMWGLkfWYD_FjpX/pub?output=tsv"; 
-        var currentHotelRates = { "standard-double": 152.94, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
+        var currentHotelRates = JSON.parse(localStorage.getItem('hotelRates')) || { "standard-double": 152.94, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
         var generatedBookingID = "CP-2026-00124";
 
         document.addEventListener("DOMContentLoaded", function() {
+            if (window.location.search.includes("admin=true")) {
+                document.getElementById("admin-dashboard").style.display = "block";
+            }
+
             var video = document.getElementById("heroVideo");
             if(video) video.currentTime = 4;
             
@@ -607,52 +620,36 @@
                         document.getElementById("bookingForm").reset();
                         updateGuestPriceDisplay();
                     } else {
-                        alert("Submission failure. Please verify configuration parameters.");
+                        alert("Submission failure.");
                     }
                 })
                 .catch(function(error) {
                     submitBtn.innerText = "Submit Reservation Request";
                     submitBtn.disabled = false;
-                    alert("Network framework diagnostic pipeline failure.");
+                    alert("Network error.");
                 });
             });
-
-            fetch(PUBLISHED_TSV_URL)
-                .then(function(response) { return response.text(); })
-                .then(function(data) {
-                    var lines = data.split("\n");
-                    for (var i = 1; i < lines.length; i++) {
-                        var parts = lines[i].split("\t");
-                        if (parts.length >= 2) {
-                            var roomKey = parts[0].trim().toLowerCase(); 
-                            var roomPrice = parseFloat(parts[1].trim());
-                            if (roomKey && !isNaN(roomPrice)) {
-                                currentHotelRates[roomKey] = roomPrice;
-                            }
-                        }
-                    }
-                    renderRatesToUI(); 
-                })
-                .catch(function(error) { console.error("Sheet Connection Refused:", error); });
         });
+
+        function updatePrices() {
+            currentHotelRates["standard-double"] = parseFloat(document.getElementById("new-double").value) || currentHotelRates["standard-double"];
+            currentHotelRates["one-bedroom-suite"] = parseFloat(document.getElementById("new-suite1").value) || currentHotelRates["one-bedroom-suite"];
+            currentHotelRates["two-bedroom-suite"] = parseFloat(document.getElementById("new-suite2").value) || currentHotelRates["two-bedroom-suite"];
+            
+            localStorage.setItem('hotelRates', JSON.stringify(currentHotelRates));
+            renderRatesToUI();
+            alert("Prices Updated!");
+        }
 
         function triggerLPODownload() {
             var lpoTarget = document.getElementById('lpo-document');
-            
             var opt = {
                 margin: [0, 0, 0, 0],
                 filename: 'CP_Booking_Confirmation_' + generatedBookingID + '.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2.5, 
-                    useCORS: true, 
-                    logging: false, 
-                    letterRendering: true,
-                    scrollY: 0, scrollX: 0
-                },
+                html2canvas: { scale: 2.5, useCORS: true, logging: false, letterRendering: true, scrollY: 0, scrollX: 0 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-
             html2pdf().set(opt).from(lpoTarget).save();
         }
 
