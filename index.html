@@ -553,7 +553,6 @@
 
     <script>
         var FORMSPREE_API = "https://formspree.io/f/mwvjbqdj";
-        var PUBLISHED_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSljbr8YCxpFqcXheuzGqg1Me1nY0uz1A5rDYhEWHm37IeL574kh5jB1KbVP4ue4dMWGLkfWYD_FjpX/pub?output=tsv"; 
         var currentHotelRates = { "standard-double": 152.94, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
         var generatedBookingID = "CP-2026-00124";
 
@@ -562,6 +561,12 @@
             if(video) video.currentTime = 4;
             
             renderRatesToUI();
+            window.addEventListener("message", function(event) {
+    if (event.data.type === 'UPDATE_PRICE') {
+        currentHotelRates = event.data.rates; // මෙතනදී අලුත් මිල ගණන් update වෙනවා
+        renderRatesToUI(); // සයිට් එකේ පේන මිල ගණන් අලුත් වෙනවා
+    }
+});
 
             document.getElementById("bookingForm").addEventListener("submit", function(e) {
                 e.preventDefault(); 
