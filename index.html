@@ -84,7 +84,7 @@
 
         .about-text { flex: 1; }
 
-        .about-text p { margin-bottom: 20px; color: var(--luxury-gray); font-size: 1.05rem; }
+        .about-text p { margin-bottom: 20px; color: #666666; font-size: 1.05rem; }
 
         .about-image-wrapper { flex: 1; }
 
@@ -446,16 +446,6 @@
         </div>
     </section>
 
-    <section id="admin-dashboard" style="display:none; padding: 40px; background: #fff3e0; text-align: center; border: 2px dashed var(--dark-gold); margin: 20px;">
-        <h2 style="margin-bottom: 20px;">Admin Price Control</h2>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <input type="number" id="new-double" placeholder="Double Room Price">
-            <input type="number" id="new-suite1" placeholder="1-Bed Suite Price">
-            <input type="number" id="new-suite2" placeholder="2-Bed Suite Price">
-            <button onclick="updatePrices()" style="padding: 10px 20px; cursor: pointer; background: var(--dark-gold); color: white; border: none;">Update Prices</button>
-        </div>
-    </section>
-
     <footer>
         <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
     </footer>
@@ -549,14 +539,17 @@
 
     <script>
         var FORMSPREE_API = "https://formspree.io/f/mwvjbqdj";
-        var currentHotelRates = JSON.parse(localStorage.getItem('hotelRates')) || { "standard-double": 152.94, "one-bedroom-suite": 750, "two-bedroom-suite": 1100 };
+        
+        // LocalStorage වෙතින් මිල ගණන් ලබා ගැනීම හෝ default අගයන් භාවිතා කිරීම
+        var currentHotelRates = JSON.parse(localStorage.getItem('hotelRates')) || { 
+            "standard-double": 152.94, 
+            "one-bedroom-suite": 750, 
+            "two-bedroom-suite": 1100 
+        };
+        
         var generatedBookingID = "CP-2026-00124";
 
         document.addEventListener("DOMContentLoaded", function() {
-            if (window.location.search.includes("admin=true")) {
-                document.getElementById("admin-dashboard").style.display = "block";
-            }
-
             var video = document.getElementById("heroVideo");
             if(video) video.currentTime = 4;
             
@@ -620,36 +613,34 @@
                         document.getElementById("bookingForm").reset();
                         updateGuestPriceDisplay();
                     } else {
-                        alert("Submission failure.");
+                        alert("Submission failure. Please verify configuration parameters.");
                     }
                 })
                 .catch(function(error) {
                     submitBtn.innerText = "Submit Reservation Request";
                     submitBtn.disabled = false;
-                    alert("Network error.");
+                    alert("Network framework diagnostic pipeline failure.");
                 });
             });
         });
 
-        function updatePrices() {
-            currentHotelRates["standard-double"] = parseFloat(document.getElementById("new-double").value) || currentHotelRates["standard-double"];
-            currentHotelRates["one-bedroom-suite"] = parseFloat(document.getElementById("new-suite1").value) || currentHotelRates["one-bedroom-suite"];
-            currentHotelRates["two-bedroom-suite"] = parseFloat(document.getElementById("new-suite2").value) || currentHotelRates["two-bedroom-suite"];
-            
-            localStorage.setItem('hotelRates', JSON.stringify(currentHotelRates));
-            renderRatesToUI();
-            alert("Prices Updated!");
-        }
-
         function triggerLPODownload() {
             var lpoTarget = document.getElementById('lpo-document');
+            
             var opt = {
                 margin: [0, 0, 0, 0],
                 filename: 'CP_Booking_Confirmation_' + generatedBookingID + '.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2.5, useCORS: true, logging: false, letterRendering: true, scrollY: 0, scrollX: 0 },
+                html2canvas: { 
+                    scale: 2.5, 
+                    useCORS: true, 
+                    logging: false, 
+                    letterRendering: true,
+                    scrollY: 0, scrollX: 0
+                },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
+
             html2pdf().set(opt).from(lpoTarget).save();
         }
 
