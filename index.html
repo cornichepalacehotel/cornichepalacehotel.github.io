@@ -4,7 +4,6 @@
     <meta name="description" content="Experience luxury and privacy at Corniche Palace, Ajman. Offering 40 premium rooms, suites, and world-class amenities for a perfect stay in the UAE.">
     <meta name="keywords" content="Corniche Palace, Hotel in Ajman, Luxury Suites Ajman, Resort Ajman, Private Villa Sanctuary, Hotel Accommodation UAE">
     <title>Corniche Palace | Your Private Villa Sanctuary</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -106,7 +105,7 @@
 
         .card-content h3 { font-size: 1.4rem; margin-bottom: 10px; color: #1a1a1a; }
 
-        .room-price-tag { color: var(--dark-gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; }
+        .room-price-tag { display: none !important; }
 
         .amenities-section { background-color: var(--pure-white); }
 
@@ -138,9 +137,7 @@
 
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--dark-gold); box-shadow: 0 0 5px rgba(170, 139, 92, 0.2); }
 
-        .live-price-calculator { background: #fdfdfd; border: 1px dashed var(--primary-gold); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; font-weight: 500; }
-
-        .live-price-calculator span { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--dark-gold); font-weight: 700; }
+        .live-price-calculator { display: none !important; }
 
         .booking-form button { background-color: #161c24; color: var(--pure-white); padding: 16px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; border-radius: 2px; }
 
@@ -168,8 +165,6 @@
         
         .history-actions { text-align: right; display: flex; flex-direction: column; gap: 10px; }
         .status-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 4px 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 20px; letter-spacing: 0.5px; text-align: center; }
-        .btn-history-download { background: #161c24; color: #ffffff; border: none; padding: 10px 18px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 2px; transition: 0.3s; }
-        .btn-history-download:hover { background: var(--dark-gold); }
 
         .success-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 20, 28, 0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
         .success-modal { background: #ffffff; width: 100%; max-width: 500px; padding: 40px 30px; border-radius: 4px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); border-top: 5px solid var(--primary-gold); animation: fadeIn 0.4s ease forwards; }
@@ -186,14 +181,6 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         footer { background-color: #0b0e14; color: #666666; text-align: center; padding: 30px; font-size: 0.85rem; }
-
-        .pdf-render-engine-deck { position: absolute; left: -9999px; top: -9999px; width: 0; height: 0; overflow: hidden; }
-
-        #lpo-document { width: 680px !important; min-height: 842px; background: #ffffff !important; padding: 30px !important; color: #000000 !important; font-family: 'Montserrat', sans-serif !important; box-sizing: border-box !important; }
-
-        #lpo-document table { width: 100% !important; border-collapse: collapse !important; margin-bottom: 25px !important; font-size: 11px !important; }
-
-        #lpo-document th, #lpo-document td { padding: 10px !important; border-bottom: 1px solid #eee !important; }
 
         @media (max-width: 768px) {
             nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
@@ -439,8 +426,7 @@
                     <p style="margin-top: 4px; color: #777;">Stay Horizon: <span id="dash-in-date">---</span> to <span id="dash-out-date">---</span></p>
                 </div>
                 <div class="history-actions">
-                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--dark-gold);" id="dash-total-val">AED 152.94</div>
-                    <button type="button" class="btn-history-download" onclick="triggerLPODownload()">Download Invoice PDF</button>
+                    <div style="display:none;" id="dash-total-val">AED 152.94</div>
                 </div>
             </div>
         </div>
@@ -449,81 +435,6 @@
     <footer>
         <p>© 2026 Corniche Palace Luxury Hotels & Resorts. All Rights Reserved.</p>
     </footer>
-
-    <div class="pdf-render-engine-deck">
-        <div id="lpo-document">
-            <div style="display: table; width: 100%; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 15px;">
-                <div style="display: table-cell; vertical-align: middle; width: 50%;">
-                    <div style="display: inline-block; vertical-align: middle;">
-                        <img src="14880.png.jpeg" alt="Resort Logo Layout" style="height: 60px; width: auto; border-radius: 50%; border: 1px solid #c5a880; margin-right: 12px;">
-                    </div>
-                    <div style="display: inline-block; vertical-align: middle;">
-                        <h1 style="margin: 0; font-size: 20px; font-family: 'Playfair Display', serif; color: #111; letter-spacing: 0.5px; text-transform: uppercase;">CORNICHE PALACE</h1>
-                        <p style="margin: 2px 0 0 0; font-size: 11px; color: #555;">HOTEL By nutmeg</p>
-                        <p style="margin: 1px 0 0 0; font-size: 10px; color: #777;">Ajman, United Arab Emirates</p>
-                    </div>
-                </div>
-                <div style="display: table-cell; vertical-align: middle; width: 50%; text-align: right;">
-                    <h2 style="margin: 0; font-size: 16px; color: #aa8b5c; font-family: 'Playfair Display', serif; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 700;">BOOKING REQUEST CONFIRMATION</h2>
-                    <p style="margin: 5px 0 0 0; font-size: 11px;"><strong>Booking ID:</strong> <span id="lpo-id">CP-2026-00124</span></p>
-                    <p style="margin: 2px 0 0 0; font-size: 11px;"><strong>Reference:</strong> <span id="lpo-ref">AG-2024260688</span></p>
-                    <p style="margin: 2px 0 0 0; font-size: 10px; color:#666;">Date: June 22, 2026</p>
-                </div>
-            </div>
-            
-            <div style="display: table; width: 100%; margin-bottom: 20px; font-size: 11px; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                <div style="display: table-cell; width: 50%; text-align: left;">
-                    <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase; font-size: 11px;">Vendor / Agency Details</h4>
-                    <p><strong>Name:</strong> Agoda Company Pte, Ltd.</p>
-                    <p>Address: 36 Robinson Road, City House #20-01, Singapore 068877</p>
-                    <p>Email: biz@agoda.com</p>
-                </div>
-                <div style="display: table-cell; width: 50%; text-align: right;">
-                    <h4 style="color: #aa8b5c; margin-bottom: 5px; text-transform: uppercase; font-size: 11px;">Guest & Stay Details</h4>
-                    <p><strong>Guest Name:</strong> <span id="lpo-name">Shehan Lakthilinage</span></p>
-                    <p><strong>Room Style:</strong> <span id="lpo-room">Standard Double Room</span></p>
-                    <p>Country: United Arab Emirates</p>
-                </div>
-            </div>
-
-            <table>
-                <thead>
-                    <tr style="background: #fbf9f6; border-bottom: 1px solid #000;">
-                        <th style="text-align: left; font-weight: 600;">Description / Room Type</th>
-                        <th style="text-align: center; font-weight: 600;">Check-In</th>
-                        <th style="text-align: center; font-weight: 600;">Check-Out</th>
-                        <th style="text-align: right; font-weight: 600;">Rate (AED)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: left;">
-                            <span id="lpo-table-room-name" style="font-weight: 600;">Standard Double Room</span><br>
-                            <span style="font-size: 10px; color: #666;">Rate Plan: Beds Network - Room Only</span>
-                        </td>
-                        <td style="text-align: center;" id="lpo-in">June 19, 2026</td>
-                        <td style="text-align: center;" id="lpo-out">June 20, 2026</td>
-                        <td style="text-align: right; font-weight: 500;" id="lpo-base-price">132.99</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" style="text-align: right; color: #555;">Taxes & Fees (15%):</td>
-                        <td style="text-align: right; color: #555;" id="lpo-tax-price">19.95</td>
-                    </tr>
-                    <tr style="background: #fcfbfa; font-weight: 600; font-size: 12px;">
-                        <td colspan="3" style="text-align: right; color: #111; border-bottom: none;">Grand Total:</td>
-                        <td style="text-align: right; color: #aa8b5c; font-size: 13px; border-bottom: none;" id="lpo-grand-total">AED 152.94</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div style="font-size: 10px; color: #555; line-height: 1.6; text-align: left; margin-top: 15px;">
-                <h4 style="color: #111; margin-bottom: 4px; font-size: 10px; text-transform: uppercase;">Terms & Conditions / Cancellation Policy</h4>
-                <p>• This booking request is Non-Refundable and cannot be amended or modified.</p>
-                <p>• Failure to arrive at the hotel will be treated as a No-Show and will incur a charge of 100% of the booking value.</p>
-                <p>• Free WiFi and Parking are included seamlessly as part of this reservation package.</p>
-            </div>
-        </div>
-    </div>
 
     <div id="successOverlay" class="success-overlay">
         <div class="success-modal">
@@ -540,7 +451,6 @@
     <script>
         var FORMSPREE_API = "https://formspree.io/f/mwvjbqdj";
         
-        // LocalStorage වෙතින් මිල ගණන් ලබා ගැනීම හෝ default අගයන් භාවිතා කිරීම
         var currentHotelRates = JSON.parse(localStorage.getItem('hotelRates')) || { 
             "standard-double": 152.94, 
             "one-bedroom-suite": 750, 
@@ -577,18 +487,6 @@
 
                 document.getElementById("total_price_input").value = currentGrandTotal;
 
-                document.getElementById("lpo-id").innerText = generatedBookingID;
-                document.getElementById("lpo-ref").innerText = generatedRef;
-                document.getElementById("lpo-name").innerText = clientName;
-                document.getElementById("lpo-room").innerText = selectedRoomText;
-                document.getElementById("lpo-table-room-name").innerText = selectedRoomText;
-                document.getElementById("lpo-in").innerText = document.getElementById("checkin").value;
-                document.getElementById("lpo-out").innerText = document.getElementById("checkout").value;
-                
-                document.getElementById("lpo-base-price").innerText = basePrice.toFixed(2);
-                document.getElementById("lpo-tax-price").innerText = taxPrice.toFixed(2);
-                document.getElementById("lpo-grand-total").innerText = "AED " + currentGrandTotal.toFixed(2);
-
                 document.getElementById("dash-user-name").innerText = clientName;
                 document.getElementById("dash-room-style").innerText = selectedRoomText;
                 document.getElementById("dash-id-str").innerText = generatedBookingID;
@@ -623,26 +521,6 @@
                 });
             });
         });
-
-        function triggerLPODownload() {
-            var lpoTarget = document.getElementById('lpo-document');
-            
-            var opt = {
-                margin: [0, 0, 0, 0],
-                filename: 'CP_Booking_Confirmation_' + generatedBookingID + '.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2.5, 
-                    useCORS: true, 
-                    logging: false, 
-                    letterRendering: true,
-                    scrollY: 0, scrollX: 0
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(lpoTarget).save();
-        }
 
         function scrollToHistory() {
             closeSuccessModal();
